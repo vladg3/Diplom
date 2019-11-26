@@ -52,8 +52,8 @@ namespace SystAnalys_lr1
             m23.Add(new Point(847, 121));
             m23.Add(new Point(1032, 2));
             m23.Add(new Point(1109, 12));
-          
-            V = new List<Vertex>();          
+
+            V = new List<Vertex>();
             G = new DrawGraph(sheet.Width, sheet.Height);
             E = new List<Edge>();
             for (int i = 0; i < m23.Count; i++)
@@ -65,15 +65,15 @@ namespace SystAnalys_lr1
             for (int i = 0; i < m23.Count - 1; i++)
             {
                 //sheet.CreateGraphics().DrawLine(new Pen(Brushes.Black, 4), m23[i - 1], m23[i]);
-                E.Add(new Edge(i, i+1));
-                G.drawEdge(V[i], V[i+1], E[E.Count - 1], E.Count - 1);
+                E.Add(new Edge(i, i + 1));
+                G.drawEdge(V[i], V[i + 1], E[E.Count - 1], E.Count - 1);
                 sheet.Image = G.GetBitmap();
-                
+
             }
 
 
             ///////////////////////////////////////////////////////////////////////////NEW
-            Bus1 = new BusPark(m23, pictureBus1,0);
+            Bus1 = new BusPark(m23, pictureBus1, 0);
             Bus2 = new BusPark(m23, pictureBox1, 10);
             Bus3 = new BusPark(m23, pictureBox2, 20);
             timer1.Interval = 1;
@@ -469,7 +469,11 @@ namespace SystAnalys_lr1
             }
         }
 
-       
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void saveButton_Click(object sender, EventArgs e)
         {
             if (sheet.Image != null)

@@ -35,7 +35,6 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBus1 = new System.Windows.Forms.PictureBox();
@@ -49,12 +48,17 @@
             this.drawEdgeButton = new System.Windows.Forms.Button();
             this.drawVertexButton = new System.Windows.Forms.Button();
             this.sheet = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBus1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.SuspendLayout();
             // 
             // listBoxMatrix
@@ -103,16 +107,6 @@
             this.label1.TabIndex = 15;
             this.label1.Text = "label1";
             // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::SystAnalys_lr1.Properties.Resources.Map;
-            this.pictureBox3.Location = new System.Drawing.Point(94, 12);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(1216, 823);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 18;
-            this.pictureBox3.TabStop = false;
-            // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::SystAnalys_lr1.Properties.Resources.shkolnyy_avtobus1;
@@ -126,7 +120,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::SystAnalys_lr1.Properties.Resources.shkolnyy_avtobus2;
-            this.pictureBox1.Location = new System.Drawing.Point(922, 411);
+            this.pictureBox1.Location = new System.Drawing.Point(992, 430);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(10, 13);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -136,7 +130,7 @@
             // pictureBus1
             // 
             this.pictureBus1.Image = global::SystAnalys_lr1.Properties.Resources.shkolnyy_avtobus;
-            this.pictureBus1.Location = new System.Drawing.Point(282, 453);
+            this.pictureBus1.Location = new System.Drawing.Point(297, 420);
             this.pictureBus1.Name = "pictureBus1";
             this.pictureBus1.Size = new System.Drawing.Size(10, 12);
             this.pictureBus1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -244,11 +238,42 @@
             this.sheet.TabStop = false;
             this.sheet.MouseClick += new System.Windows.Forms.MouseEventHandler(this.sheet_MouseClick);
             // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::SystAnalys_lr1.Properties.Resources.shkolnyy_avtobus;
+            this.pictureBox3.Location = new System.Drawing.Point(189, 451);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(14, 14);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 18;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::SystAnalys_lr1.Properties.Resources.shkolnyy_avtobus;
+            this.pictureBox4.Location = new System.Drawing.Point(1115, 521);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(12, 14);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox4.TabIndex = 19;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::SystAnalys_lr1.Properties.Resources.Map;
+            this.pictureBox5.Location = new System.Drawing.Point(94, 12);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(1216, 808);
+            this.pictureBox5.TabIndex = 20;
+            this.pictureBox5.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1608, 847);
+            this.Controls.Add(this.pictureBox4);
+            this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
@@ -265,19 +290,21 @@
             this.Controls.Add(this.drawEdgeButton);
             this.Controls.Add(this.drawVertexButton);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.pictureBox3);
+            this.Controls.Add(this.pictureBox5);
             this.Controls.Add(this.sheet);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "SEX_WITH_DIPLOM VER 0.003 (WORK IN PROGRESS)";
+            this.Text = "SEX_WITH_DIPLOM VER 0.004 (WORK IN PROGRESS)";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBus1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -305,6 +332,8 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.PictureBox pictureBox5;
     }
 }
 

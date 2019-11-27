@@ -13,10 +13,17 @@ namespace SystAnalys_lr1
     class Vertex
     {
         public int x, y;
+        private Point point;
 
         public Vertex(int x, int y)
         {
             this.x = x;
+            this.y = y;
+        }
+
+        public Vertex(Point point, int y)
+        {
+            this.point = point;
             this.y = y;
         }
     }
@@ -163,12 +170,12 @@ namespace SystAnalys_lr1
         private bool TurnBack;
         private PictureBox Bus;
 
-        public BusPark(List<Point> m23, PictureBox Bus, int AngleCount)
+        public BusPark(List<Vertex> m, PictureBox Bus, int AngleCount)
         {
             V = new List<Vertex>();
-            for (int i = 0; i < m23.Count; i++)
+            for (int i = 0; i < m.Count; i++)
             {
-                V.Add(new Vertex(m23[i].X, m23[i].Y));
+                V.Add(new Vertex(m[i].x, m[i].y));
             }
             this.Bus = Bus;
             x = Bus.Left;

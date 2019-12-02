@@ -16,8 +16,11 @@ namespace SystAnalys_lr1
         DrawGraph G;
         List<Vertex> route7;
         List<Vertex> route23;
+        List<Vertex> route62;
+        List<Vertex> route404;
         List<Edge> E;
-        BusPark Bus1, Bus2, Bus3, Bus4, Bus5;//////////////////////////////////////////////////////////////////////////NEW
+        List<Point> AllRotationsPoints;
+        BusPark Bus7_1, Bus7_2, Bus7_3, Bus23_1, Bus23_2, Bus62_1, Bus404_1, Bus404_2;//////////////////////////////////////////////////////////////////////////NEW
 
 
 
@@ -27,21 +30,23 @@ namespace SystAnalys_lr1
         int selected1; //выбранные вершины, для соединения линиями
         int selected2;
 
+    
+
         public Form1()
         {
             InitializeComponent();
-            List<Point> AllRotationsPoints = new List<Point>();
-
+            AllRotationsPoints = new List<Point>();
+            
             AllRotationsPoints.Add(new Point(204, 438));
             AllRotationsPoints.Add(new Point(247, 577));
             AllRotationsPoints.Add(new Point(490, 530));
             AllRotationsPoints.Add(new Point(574, 708));
-            AllRotationsPoints.Add(new Point(642, 728));
+            AllRotationsPoints.Add(new Point(642, 728));            
             AllRotationsPoints.Add(new Point(739, 658));
             AllRotationsPoints.Add(new Point(854, 794));
             AllRotationsPoints.Add(new Point(1063, 633));
             AllRotationsPoints.Add(new Point(1043, 575));
-            AllRotationsPoints.Add(new Point(1049, 532));
+            AllRotationsPoints.Add(new Point(1036, 541));
             AllRotationsPoints.Add(new Point(931, 390));
             AllRotationsPoints.Add(new Point(1029, 320));
             AllRotationsPoints.Add(new Point(974, 247));
@@ -53,7 +58,6 @@ namespace SystAnalys_lr1
             AllRotationsPoints.Add(new Point(847, 121));
             AllRotationsPoints.Add(new Point(1032, 2));
             AllRotationsPoints.Add(new Point(1109, 12));
-            ////////////////
             AllRotationsPoints.Add(new Point(213, 484));
             AllRotationsPoints.Add(new Point(167, 513));
             AllRotationsPoints.Add(new Point(179, 563));
@@ -62,12 +66,30 @@ namespace SystAnalys_lr1
             AllRotationsPoints.Add(new Point(0, 642));
             AllRotationsPoints.Add(new Point(888, 278));
             AllRotationsPoints.Add(new Point(890, 187));
+            AllRotationsPoints.Add(new Point(373, 377));
+            AllRotationsPoints.Add(new Point(400, 375));
+            AllRotationsPoints.Add(new Point(565, 276));
             AllRotationsPoints.Add(new Point(1034, 187));
+            ////
+            AllRotationsPoints.Add(new Point(1515, 547));
+            AllRotationsPoints.Add(new Point(1452, 567));
+            AllRotationsPoints.Add(new Point(1411, 573));
+            AllRotationsPoints.Add(new Point(1341, 609));
+            AllRotationsPoints.Add(new Point(1175, 606));
+            AllRotationsPoints.Add(new Point(1151, 507));
+            AllRotationsPoints.Add(new Point(1079, 544));
+            //AllRotationsPoints.Add(new Point(1036, 541));
+            AllRotationsPoints.Add(new Point(869, 312));
+            AllRotationsPoints.Add(new Point(828, 342));
+            AllRotationsPoints.Add(new Point(805, 448));
+            AllRotationsPoints.Add(new Point(804, 565));
+            AllRotationsPoints.Add(new Point(814, 608));
+            AllRotationsPoints.Add(new Point(912, 736));
+            AllRotationsPoints.Add(new Point(728, 871));
 
-            /////
+
             route7 = new List<Vertex>();
-            G = new DrawGraph(sheet.Width, sheet.Height);
-            E = new List<Edge>();
+
             route7.Add(new Vertex(AllRotationsPoints[0].X, AllRotationsPoints[0].Y));
             route7.Add(new Vertex(AllRotationsPoints[1].X, AllRotationsPoints[1].Y));
             route7.Add(new Vertex(AllRotationsPoints[2].X, AllRotationsPoints[2].Y));
@@ -90,8 +112,32 @@ namespace SystAnalys_lr1
             route7.Add(new Vertex(AllRotationsPoints[19].X, AllRotationsPoints[19].Y));
             route7.Add(new Vertex(AllRotationsPoints[20].X, AllRotationsPoints[20].Y));
 
-            ///////////////////
+           
+            route62 = new List<Vertex>();
+       
+            route62.Add(CallRotationPoint(AllRotationsPoints, 1034, 187));
+            route62.Add(CallRotationPoint(AllRotationsPoints, 890, 187));
+            route62.Add(CallRotationPoint(AllRotationsPoints, 888, 278));
+            route62.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(565, 276))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(565, 276))].Y));
+            route62.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(400, 375))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(400, 375))].Y));
+            route62.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(373, 377))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(373, 377))].Y));
+            route62.Add(new Vertex(AllRotationsPoints[0].X, AllRotationsPoints[0].Y));
+            route62.Add(route7[1]);
+            route62.Add(route7[2]);
+            route62.Add(route7[3]);
+            route62.Add(route7[4]);
+            route62.Add(route7[5]);
+            route62.Add(route7[6]);
+            route62.Add(route7[7]);
+            route62.Add(route7[8]);
+            route62.Add(route7[9]);
+            route62.Add(route7[14]);
+            route62.Add(CallRotationPoint(AllRotationsPoints, 888, 278));
+            route62.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(890, 187))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(890, 187))].Y));
+            route62.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1034, 187))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1034, 187))].Y));
+           
             route23 = new List<Vertex>();
+
             route23.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(0, 642))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(0, 642))].Y));
             route23.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(164, 620))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(164, 620))].Y));
             route23.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(163, 579))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(163, 579))].Y));
@@ -112,43 +158,83 @@ namespace SystAnalys_lr1
             route23.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(890, 187))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(890, 187))].Y));
             route23.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1034, 187))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1034, 187))].Y));
 
+            route404 = new List<Vertex>();
+            route404.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1515, 547))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1515, 547))].Y));
+            route404.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1452, 567))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1452, 567))].Y));
+            route404.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1411, 573))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1411, 573))].Y));
+            route404.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1341, 609))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1341, 609))].Y));
+            route404.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1175, 606))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1175, 606))].Y));
+            route404.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1151, 507))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1151, 507))].Y)); 
+            route404.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1079, 544))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1079, 544))].Y));
+            route404.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1036, 541))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1036, 541))].Y));
+            route404.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(869, 312))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(869, 312))].Y));
+            route404.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(828, 342))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(828, 342))].Y));
+            route404.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(805, 448))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(805, 448))].Y)); 
+            route404.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(804, 565))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(804, 565))].Y));
+            route404.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(814, 608))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(814, 608))].Y));
+            route404.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(912, 736))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(912, 736))].Y));
+         
+            route404.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(728, 871))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(728, 871))].Y));
 
 
+       
+
+            G = new DrawGraph(sheet.Width, sheet.Height);
+            E = new List<Edge>();
+
+            for (int i = 0; i < route62.Count; i++)
+            {
+                G.drawVertex(route62[i].x, route62[i].y, route62.Count.ToString());
+                sheet.Image = G.GetBitmap();
+                if (i + 1 < route62.Count)
+                {
+                    E.Add(new Edge(i, i + 1));
+                    G.drawEdge(route62[i], route62[i + 1], E[E.Count - 1], E.Count - 1);
+                    sheet.Image = G.GetBitmap();
+                }
+            }
             for (int i = 0; i < route7.Count; i++)
             {
                 G.drawVertex(route7[i].x, route7[i].y, route7.Count.ToString());
                 sheet.Image = G.GetBitmap();
-            }
-            for (int i = 0; i < route7.Count - 1; i++)
-            {
-                //sheet.CreateGraphics().DrawLine(new Pen(Brushes.Black, 4), m23[i - 1], m23[i]);
-                E.Add(new Edge(i, i + 1));
-                G.drawEdge(route7[i], route7[i + 1], E[E.Count - 1], E.Count - 1);
-                sheet.Image = G.GetBitmap();
+                if (i + 1 < route7.Count)
+                {
+                    E.Add(new Edge(i, i + 1));
+                    G.drawEdge(route7[i], route7[i + 1], E[E.Count - 1], E.Count - 1);
+                    sheet.Image = G.GetBitmap();
+                }
             }
             for (int i = 0; i < route23.Count; i++)
             {
                 G.drawVertex(route23[i].x, route23[i].y, route23.Count.ToString());
                 sheet.Image = G.GetBitmap();
+                if(i + 1 < route23.Count)
+                {
+                    E.Add(new Edge(i, i + 1));
+                    G.drawEdge(route23[i], route23[i + 1], E[E.Count - 1], E.Count - 1);
+                    sheet.Image = G.GetBitmap();
+                }
+              
             }
-            for (int i = 0; i < route23.Count - 1; i++)
-            {
-                //sheet.CreateGraphics().DrawLine(new Pen(Brushes.Black, 4), m23[i - 1], m23[i]);
-                E.Add(new Edge(i, i + 1));
-                G.drawEdge(route23[i], route23[i + 1], E[E.Count - 1], E.Count - 1);
-                sheet.Image = G.GetBitmap();
-            }
+       
 
 
-            ///////////////////////////////////////////////////////////////////////////NEW
-            Bus1 = new BusPark(route7, pictureBus1, 0);
-            Bus2 = new BusPark(route7, pictureBox1, 10);
-            Bus3 = new BusPark(route7, pictureBox2, 20);
-            Bus4 = new BusPark(route23, pictureBox3, 5);
-            Bus5 = new BusPark(route23, pictureBox4, 14);
+            Bus7_1 = new BusPark(route7, pictureBus7_1, 0);
+            Bus7_2 = new BusPark(route7, pictureBox7_3, 10);
+            Bus7_3 = new BusPark(route7, pictureBus7_2, 20);
+            Bus23_1 = new BusPark(route23, pictureBus23_1, 5);
+            Bus23_2 = new BusPark(route23, pictureBus23_2, 14);
+            Bus62_1 = new BusPark(route62, pictureBus62_1, 1);
+            Bus404_1 = new BusPark(route404, pictureBus404_1, 1);
+            Bus404_2 = new BusPark(route404, pictureBus404_2, route404.Count-1);
             timer1.Interval = 1;
-            //////////////////////////////////////////////////////////////////////////NEW
             timer1.Start();
+        }
+
+
+        private Vertex CallRotationPoint(List<Point> AllRotationsPoints,int x, int y)
+        {
+            return new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(x, y))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(x, y))].Y);
         }
 
         //кнопка - выбрать вершину
@@ -481,6 +567,18 @@ namespace SystAnalys_lr1
             }
         }
 
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox5_MouseClick(object sender, MouseEventArgs e)
+        {
+          
+            label2.Text = e.X.ToString() + ";" + e.Y.ToString();
+            
+        }
+
         //обход в глубину. поиск элементарных циклов. (1-white 2-black)
         //Вершину, для которой ищем цикл, перекрашивать в черный не будем. Поэтому, для избежания неправильной
         //работы программы, введем переменную unavailableEdge, в которой будет хранится номер ребра, исключаемый
@@ -573,12 +671,14 @@ namespace SystAnalys_lr1
         private void timer1_Tick(object sender, EventArgs e)
         {
            
-            Bus1.Move();
-            Bus2.Move();
-            Bus3.Move();
-            Bus4.Move();
-            Bus5.Move();
-
+            Bus7_1.Move();
+            Bus7_2.Move();
+            Bus7_3.Move();
+            Bus23_1.Move();
+            Bus23_2.Move();
+            Bus62_1.Move();
+            Bus404_1.Move();
+            Bus404_2.Move();
         }
     }
 }

@@ -166,11 +166,11 @@ namespace SystAnalys_lr1
     {
         private List<Vertex> V;
         private double  angle,x,y;
-        private int AngleCount;
+        private int PositionAt;
         private bool TurnBack;
         private PictureBox Bus;
 
-        public BusPark(List<Vertex> m, PictureBox Bus, int AngleCount)
+        public BusPark(List<Vertex> m, PictureBox Bus, int PositionAt)
         {
             V = new List<Vertex>();
             for (int i = 0; i < m.Count; i++)
@@ -180,8 +180,8 @@ namespace SystAnalys_lr1
             this.Bus = Bus;
             x = Bus.Left;
             y = Bus.Top;
-            this.AngleCount = AngleCount;
-            angle = GetAngle(this.V[AngleCount].x, this.V[AngleCount].y);
+            this.PositionAt = PositionAt;
+            angle = GetAngle(this.V[PositionAt].x, this.V[PositionAt].y);
             TurnBack = false;
         }
 
@@ -194,54 +194,54 @@ namespace SystAnalys_lr1
         {
             if (TurnBack == false)
             {
-                if ((TurnBack == false) && (Math.Abs((Math.Abs(x) + Math.Abs(y)) - (Math.Abs((V[AngleCount].x) + Math.Abs(V[AngleCount].y))))) > 3)
+                if ((TurnBack == false) && (Math.Abs((Math.Abs(x) + Math.Abs(y)) - (Math.Abs((V[PositionAt].x) + Math.Abs(V[PositionAt].y))))) > 3)
                 {
                     x -= Math.Sin(angle);
                     y -= Math.Cos(angle);
 
 
-                    Bus.Left = (int)x + 94;
-                    Bus.Top = (int)y + 12;
+                    Bus.Left = (int)x  ;
+                    Bus.Top = (int)y ;
 
                 }
                 else
                 {
-                    if (AngleCount >= V.Count - 1)
+                    if (PositionAt >= V.Count - 1)
                     {
                         TurnBack = true;
-                        AngleCount = AngleCount - 1;
-                        angle = GetAngle(V[AngleCount].x, V[AngleCount].y);
+                        PositionAt = PositionAt - 1;
+                        angle = GetAngle(V[PositionAt].x, V[PositionAt].y);
 
 
                     }
                     else
                     {
-                        AngleCount++;
-                        angle = GetAngle(V[AngleCount].x, V[AngleCount].y);
+                        PositionAt++;
+                        angle = GetAngle(V[PositionAt].x, V[PositionAt].y);
                     }
                 }
             }
             if (TurnBack == true)
             {
-                if ((Math.Abs((Math.Abs(x) + Math.Abs(y)) - (Math.Abs(V[AngleCount].x + Math.Abs(V[AngleCount].y))))) > 3)
+                if ((Math.Abs((Math.Abs(x) + Math.Abs(y)) - (Math.Abs(V[PositionAt].x + Math.Abs(V[PositionAt].y))))) > 3)
                 {
                     x -= Math.Sin(angle);
                     y -= Math.Cos(angle);
 
 
-                    Bus.Left = (int)x + 94;
-                    Bus.Top = (int)y + 12;
+                    Bus.Left = (int)x ;
+                    Bus.Top = (int)y;
                 }
                 else 
                 {
-                    if (AngleCount == 0)
+                    if (PositionAt == 0)
                     {
                         TurnBack = false;
                     }
                     else
                     {
-                        AngleCount = AngleCount - 1;
-                        angle = GetAngle(V[AngleCount].x, V[AngleCount].y);
+                        PositionAt = PositionAt - 1;
+                        angle = GetAngle(V[PositionAt].x, V[PositionAt].y);
                     }
 
                 }

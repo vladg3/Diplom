@@ -15,6 +15,7 @@ namespace SystAnalys_lr1
     public partial class Form1 : Form
     {
         DrawGraph G;
+        List<Epicenters> testim;
         List<Vertex> route7;
         List<Vertex> route23;
         List<Vertex> route62;
@@ -217,43 +218,48 @@ namespace SystAnalys_lr1
                 }
               
             }
-       
 
+            testim = new List<Epicenters>();
+            testim.Add(new Epicenters(pictureBox5, 500, 500, 100));
+            testim.Add(new Epicenters(pictureBox5, 900, 400, 50));
 
-            Bus7_1 = new BusPark(route7, pictureBus7_1, 0);
-            Bus7_2 = new BusPark(route7, pictureBox7_3, 10);
-            Bus7_3 = new BusPark(route7, pictureBus7_2, 20);
-            Bus7_4 = new BusPark(route7, pictureBox1, 1);
-            Bus7_5 = new BusPark(route7, pictureBox2, 3,true);
-            Bus7_6 = new BusPark(route7, pictureBox3, 5);
-            Bus7_7 = new BusPark(route7, pictureBox4, 7);
-            Bus7_8 = new BusPark(route7, pictureBox6, 9,true);
-            Bus7_9 = new BusPark(route7, pictureBox8, 16);
-            Bus7_10 = new BusPark(route7, pictureBox9, 13);
-            Bus7_11 = new BusPark(route7, pictureBox10, 14);
-            Bus7_12 = new BusPark(route7, pictureBox11, 16,true);
-            Bus7_13 = new BusPark(route7, pictureBox12, 18);
-            Bus7_14 = new BusPark(route7, pictureBox13, 20);
-            Bus7_15 = new BusPark(route7, pictureBox14, 6);
-            Bus7_16 = new BusPark(route7, pictureBox7, 10,true);
+            Bus7_1 = new BusPark(route7, pictureBus7_1, 0, testim, pictureBox5);
+            Bus7_2 = new BusPark(route7, pictureBox7_3, 10, testim, pictureBox5);
+            Bus7_3 = new BusPark(route7, pictureBus7_2, 20, testim, pictureBox5);
+            Bus7_4 = new BusPark(route7, pictureBox1, 1, testim, pictureBox5);
+            Bus7_5 = new BusPark(route7, pictureBox2, 3, true, testim, pictureBox5);
+            Bus7_6 = new BusPark(route7, pictureBox3, 5, testim, pictureBox5);
+            Bus7_7 = new BusPark(route7, pictureBox4, 7, testim, pictureBox5);
+            Bus7_8 = new BusPark(route7, pictureBox6, 9, true, testim, pictureBox5);
+            Bus7_9 = new BusPark(route7, pictureBox8, 16, testim, pictureBox5);
+            Bus7_10 = new BusPark(route7, pictureBox9, 13, testim, pictureBox5);
+            Bus7_11 = new BusPark(route7, pictureBox10, 14, testim, pictureBox5);
+            Bus7_12 = new BusPark(route7, pictureBox11, 16, true, testim, pictureBox5);
+            Bus7_13 = new BusPark(route7, pictureBox12, 18, testim, pictureBox5);
+            Bus7_14 = new BusPark(route7, pictureBox13, 20, testim, pictureBox5);
+            Bus7_15 = new BusPark(route7, pictureBox14, 6, testim, pictureBox5);
+            Bus7_16 = new BusPark(route7, pictureBox7, 10, true, testim, pictureBox5);
 
-            Bus23_1 = new BusPark(route23, pictureBus23_1, 5);
-            Bus23_2 = new BusPark(route23, pictureBus23_2, 14);
-            Bus62_1 = new BusPark(route62, pictureBus62_1, 1);
-            Bus404_1 = new BusPark(route404, pictureBus404_1, 1);
-            Bus404_2 = new BusPark(route404, pictureBus404_2, route404.Count-1);
+            Bus23_1 = new BusPark(route23, pictureBus23_1, 5, testim, pictureBox5);
+            Bus23_2 = new BusPark(route23, pictureBus23_2, 14, testim, pictureBox5);
+            Bus62_1 = new BusPark(route62, pictureBus62_1, 1, testim, pictureBox5);
+            Bus404_1 = new BusPark(route404, pictureBus404_1, 1, testim, pictureBox5);
+            Bus404_2 = new BusPark(route404, pictureBus404_2, route404.Count-1, testim, pictureBox5);
            // pictureBox5.CreateGraphics().FillEllipse(new LinearGradientBrush(new Point(0, 10), new Point(200, 10), Color.FromArgb(255, 255, 0, 0), Color.FromArgb(255, 0, 0, 255)), 0, 30, 200, 100);
 
             timer1.Interval = 1;
             timer1.Start();
-      
+
+       
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
 
-            test = new Epicenters(pictureBox5,50, 50, 100, 100);
-       
+           // test = new Epicenters(pictureBox5,500,500, 350);
+            
+            testim[0].DrawEpicenter();
+            testim[1].DrawEpicenter();
             
         }
 
@@ -700,7 +706,7 @@ namespace SystAnalys_lr1
         //////////////////////////////////////////////////////////////////////////NEW
         private void timer1_Tick(object sender, EventArgs e)
         {
-           
+
             Bus7_1.Move();
             Bus7_2.Move();
             Bus7_3.Move();

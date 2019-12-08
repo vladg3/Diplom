@@ -162,18 +162,23 @@ namespace SystAnalys_lr1
 
         
     }
-    //////////////////////////////////////////////////////////////////////////NEW
+ 
     class BusPark
     {
         private List<Vertex> V;
+        private List<Epicenters> Epicenters;
         private double  angle,x,y;
         private int PositionAt;
         private bool TurnBack;
         private PictureBox Bus;
+        private PictureBox Map;
 
-        public BusPark(List<Vertex> m, PictureBox Bus, int PositionAt)
+        public BusPark(List<Vertex> m, PictureBox Bus, int PositionAt, List<Epicenters> Epicenters, PictureBox Map)
         {
+            this.Map = Map;
             V = new List<Vertex>();
+            this.Epicenters = new List<Epicenters>();
+            this.Epicenters = Epicenters;
             for (int i = 0; i < m.Count; i++)
             {
                 V.Add(new Vertex(m[i].x, m[i].y));
@@ -186,9 +191,12 @@ namespace SystAnalys_lr1
             TurnBack = false;
         }
 
-        public BusPark(List<Vertex> m, PictureBox Bus, int PositionAt, bool Turn)
+        public BusPark(List<Vertex> m, PictureBox Bus, int PositionAt, bool Turn, List<Epicenters> Epicenters, PictureBox Map)
         {
+            this.Map = Map;
             V = new List<Vertex>();
+            this.Epicenters = new List<Epicenters>();
+            this.Epicenters = Epicenters;
             for (int i = 0; i < m.Count; i++)
             {
                 V.Add(new Vertex(m[i].x, m[i].y));
@@ -212,13 +220,24 @@ namespace SystAnalys_lr1
             {
                 if ((TurnBack == false) && (Math.Abs((Math.Abs(x) + Math.Abs(y)) - (Math.Abs((V[PositionAt].x) + Math.Abs(V[PositionAt].y))))) > 3)
                 {
+                    for (int i = 0; i < Epicenters.Count; i++)
+                    {
+                        if (GetDistance((double)Bus.Left, (double)Bus.Top, (double)Epicenters[i].x, (double)Epicenters[i].y) < Epicenters[i].radius)
+                        // if (this.Bus.Left == (Epicenters[i].x))
+                        {
+
+                            // this.Bus.CreateGraphics().DrawLine(new Pen(Color.FromArgb(128, 255, 255, 0)), Bus.Left, Bus.Top, Bus.Left, Bus.Top);
+                            // this.Map.CreateGraphics().FillEllipse(new SolidBrush(Color.FromArgb(128, 255, 255, 0)), Epicenters[i].x - Epicenters[i].radius /2, Epicenters[i].y - Epicenters[i].radius /2, Epicenters[i].radius, Epicenters[i].radius);
+                            this.Map.CreateGraphics().DrawLine(new Pen(Color.Black), Bus.Left - 5, Bus.Top - 5, Bus.Left - 6, Bus.Top - 6);
+                        }
+                    }
                     x -= Math.Sin(angle);
                     y -= Math.Cos(angle);
 
 
                     Bus.Left = (int)x  ;
                     Bus.Top = (int)y ;
-
+                  
                 }
                 else
                 {
@@ -241,12 +260,25 @@ namespace SystAnalys_lr1
             {
                 if ((Math.Abs((Math.Abs(x) + Math.Abs(y)) - (Math.Abs(V[PositionAt].x + Math.Abs(V[PositionAt].y))))) > 3)
                 {
+                    for (int i = 0; i < Epicenters.Count; i++)
+                    {
+                        if (GetDistance((double)Bus.Left, (double)Bus.Top, (double)Epicenters[i].x, (double)Epicenters[i].y) < Epicenters[i].radius)
+                        // if (this.Bus.Left == (Epicenters[i].x))
+                        {
+
+                            // this.Bus.CreateGraphics().DrawLine(new Pen(Color.FromArgb(128, 255, 255, 0)), Bus.Left, Bus.Top, Bus.Left, Bus.Top);
+                            // this.Map.CreateGraphics().FillEllipse(new SolidBrush(Color.FromArgb(128, 255, 255, 0)), Epicenters[i].x - Epicenters[i].radius /2, Epicenters[i].y - Epicenters[i].radius /2, Epicenters[i].radius, Epicenters[i].radius);
+                            this.Map.CreateGraphics().DrawLine(new Pen(Color.Black), Bus.Left - 5, Bus.Top - 5, Bus.Left - 6, Bus.Top - 6);
+                        }
+                    }
                     x -= Math.Sin(angle);
                     y -= Math.Cos(angle);
 
 
                     Bus.Left = (int)x ;
                     Bus.Top = (int)y;
+
+                  
                 }
                 else 
                 {
@@ -264,35 +296,34 @@ namespace SystAnalys_lr1
             }
          
         }
+        private  double GetDistance(double x1, double y1, double x2, double y2)
+        {
+            return (int)Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
+        }
     }
     class Epicenters
     {
-      //  public PictureBox Epicenter;
-        GraphicsPath path;
 
-        public PictureBox Map;
-        PathGradientBrush pthGrBrush;
-        Color[] colors;
-        int x, y, width, height;
-        public Epicenters(PictureBox Map,int x, int y, int width, int height)
+        private PictureBox Map;
+        public int x, y, radius; 
+        public Epicenters(PictureBox Map,int x, int y, int radius)
         {
-            //  Epicenter = new PictureBox();
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+           //this.height = height;
             this.Map = Map;
-            path = new GraphicsPath();
-            path.AddEllipse(x, y, width, height);
-            Color[] colors = {
-                Color.FromArgb(128,255,255,0),
-            };
 
-            pthGrBrush = new PathGradientBrush(path);
-            pthGrBrush.CenterColor = Color.FromArgb(128,255,0,0);
-            pthGrBrush.SurroundColors = colors;
-            //Epicenter.Size = new System.Drawing.Size(140, 140);
-            //Epicenter.Region = new Region(path);
-            //this.Epicenter.CreateGraphics().FillEllipse(pthGrBrush, x, y, width, height);
-            this.Map.CreateGraphics().FillEllipse(pthGrBrush, x, y, width, height);
-            //Epicenter.Top = 100;
-            //Epicenter.Left = 100;
+            //this.Map.CreateGraphics().FillEllipse(new SolidBrush(Color.FromArgb(128, 255, 255, 0)), x-radius/2, y-radius/2, radius, radius);
+            //this.Map.CreateGraphics().FillEllipse(new SolidBrush(Color.FromArgb(128, 255, 128, 0)), (x + radius / 4)-radius / 2, (y + radius / 4)-radius / 2, radius / 2, radius / 2);
+            //this.Map.CreateGraphics().FillEllipse(new SolidBrush(Color.FromArgb(128, 255, 0, 0)), ((int)(x + (double)radius / 2.7))-radius / 2, ((int)(y + (double)radius / 2.7)) - radius / 2, radius / 4, radius / 4) ;
+        }
+        public void DrawEpicenter()
+        {
+
+            this.Map.CreateGraphics().FillEllipse(new SolidBrush(Color.FromArgb(128, 255, 255, 0)), x - radius / 2, y - radius / 2, radius, radius);
+            this.Map.CreateGraphics().FillEllipse(new SolidBrush(Color.FromArgb(128, 255, 128, 0)), (x + radius / 4) - radius / 2, (y + radius / 4) - radius / 2, radius / 2, radius / 2);
+            this.Map.CreateGraphics().FillEllipse(new SolidBrush(Color.FromArgb(128, 255, 0, 0)), ((int)(x + (double)radius / 2.7)) - radius / 2, ((int)(y + (double)radius / 2.7)) - radius / 2, radius / 4, radius / 4);
         }
     }
 }

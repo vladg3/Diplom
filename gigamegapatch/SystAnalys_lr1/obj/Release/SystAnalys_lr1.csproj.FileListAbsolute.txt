@@ -18,3 +18,13 @@ C:\Users\User\Desktop\poehali\gigamegapatch\SystAnalys_lr1\obj\Release\SystAnaly
 C:\Users\User\Desktop\poehali\gigamegapatch\SystAnalys_lr1\obj\Release\SystAnalys_lr1.csproj.CoreCompileInputs.cache
 C:\Users\User\Desktop\poehali\gigamegapatch\SystAnalys_lr1\obj\Release\SystAnalys_lr1.exe
 C:\Users\User\Desktop\poehali\gigamegapatch\SystAnalys_lr1\obj\Release\SystAnalys_lr1.pdb
+C:\Users\User\Desktop\gigamegapatch\SystAnalys_lr1\bin\Release\SystAnalys_lr1.exe.config
+C:\Users\User\Desktop\gigamegapatch\SystAnalys_lr1\bin\Release\SystAnalys_lr1.exe
+C:\Users\User\Desktop\gigamegapatch\SystAnalys_lr1\bin\Release\SystAnalys_lr1.pdb
+C:\Users\User\Desktop\gigamegapatch\SystAnalys_lr1\obj\Release\SystAnalys_lr1.csprojAssemblyReference.cache
+C:\Users\User\Desktop\gigamegapatch\SystAnalys_lr1\obj\Release\SystAnalys_lr1.Form1.resources
+C:\Users\User\Desktop\gigamegapatch\SystAnalys_lr1\obj\Release\SystAnalys_lr1.Properties.Resources.resources
+C:\Users\User\Desktop\gigamegapatch\SystAnalys_lr1\obj\Release\SystAnalys_lr1.csproj.GenerateResource.cache
+C:\Users\User\Desktop\gigamegapatch\SystAnalys_lr1\obj\Release\SystAnalys_lr1.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\gigamegapatch\SystAnalys_lr1\obj\Release\SystAnalys_lr1.exe
+C:\Users\User\Desktop\gigamegapatch\SystAnalys_lr1\obj\Release\SystAnalys_lr1.pdb

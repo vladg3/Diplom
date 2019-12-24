@@ -63,6 +63,26 @@ namespace SystAnalys_lr1.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _107 {
+            get {
+                object obj = ResourceManager.GetObject("107", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _20 {
+            get {
+                object obj = ResourceManager.GetObject("20", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _23 {
             get {
                 object obj = ResourceManager.GetObject("23", resourceCulture);
@@ -256,6 +276,16 @@ namespace SystAnalys_lr1.Properties {
         internal static System.Drawing.Bitmap vertex {
             get {
                 object obj = ResourceManager.GetObject("vertex", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap xxx {
+            get {
+                object obj = ResourceManager.GetObject("xxx", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

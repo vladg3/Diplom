@@ -161,7 +161,6 @@ namespace SystAnalys_lr1
 
 
     }
-    //////////////////////////////////////////////////////////////////////////NEW
     class BusPark
     {
         private List<Epicenter> Epicenters;
@@ -232,64 +231,90 @@ namespace SystAnalys_lr1
             TurnBack = Turn;
         }
 
+        public BusPark(List<Vertex> m, PictureBox Bus, int PositionAt, bool Turn, List<Vertex> s, PictureBox Map, List<Epicenter> Epicenters)
+        {
+            this.Map = Map;
+            this.Epicenters = new List<Epicenter>();
+            this.Epicenters = Epicenters;
+            V = new List<Vertex>();
+            stop = new List<Vertex>();
+            for (int i = 0; i < s.Count; i++)
+            {
+                stop.Add(new Vertex(s[i].x, s[i].y));
+            }
+            for (int i = 0; i < m.Count; i++)
+            {
+                V.Add(new Vertex(m[i].x, m[i].y));
+            }
+            this.Bus = Bus;
+            x = Bus.Left;
+            y = Bus.Top;
+            this.PositionAt = PositionAt;
+            angle = GetAngle(this.V[PositionAt].x, this.V[PositionAt].y);
+            TurnBack = Turn;
+        }
+
         double GetAngle(double x2, double y2)
         {
             return Math.Atan2((x - x2), (y - y2));
         }
+
         private double GetDistance(double x1, double y1, double x2, double y2)
         {
             return (int)Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
         }
+
         private void DetectEpicenter()
         {
             for (int i = 0; i < Epicenters.Count; i++)
             {
-                if (GetDistance((double)Bus.Left, (double)Bus.Top, (double)Epicenters[i].x, (double)Epicenters[i].y) < Epicenters[i].radius / 3)
+                if (GetDistance((double)Bus.Left + Bus.Width / 2, (double)Bus.Top + Bus.Height /2, (double)Epicenters[i].x, (double)Epicenters[i].y) < ((Epicenters[i].radius / 2) / 2)/2)
                 {
 
                     this.Map.CreateGraphics().DrawLine(new Pen(Color.DarkRed), Bus.Left + Bus.Width / 2, Bus.Top + Bus.Height, Bus.Left + Bus.Width / 2 + 1, Bus.Top + Bus.Height + 1);
-                    this.Map.CreateGraphics().DrawLine(new Pen(Color.DarkRed), Bus.Left + Bus.Width / 2, Bus.Top-1, Bus.Left + Bus.Width / 2 + 1, Bus.Top - 1);
+                    this.Map.CreateGraphics().DrawLine(new Pen(Color.DarkRed), Bus.Left + Bus.Width / 2, Bus.Top - 1, Bus.Left + Bus.Width / 2 + 1, Bus.Top - 1);
+
 
                 }
                 else
-                    if (GetDistance((double)Bus.Left, (double)Bus.Top, (double)Epicenters[i].x, (double)Epicenters[i].y) < Epicenters[i].radius / 2)
+                    if (GetDistance((double)Bus.Left + Bus.Width / 2, (double)Bus.Top + Bus.Height / 2, (double)Epicenters[i].x, (double)Epicenters[i].y) < (Epicenters[i].radius / 2)/2)
                 {
 
-                     this.Map.CreateGraphics().DrawLine(new Pen(Color.DarkSeaGreen), Bus.Left + Bus.Width / 2, Bus.Top + Bus.Height, Bus.Left + Bus.Width / 2 + 1, Bus.Top + Bus.Height + 1);
-                    this.Map.CreateGraphics().DrawLine(new Pen(Color.DarkSeaGreen), Bus.Left + Bus.Width / 2, Bus.Top - 1, Bus.Left + Bus.Width / 2 + 1, Bus.Top - 1);
-
+                    this.Map.CreateGraphics().DrawLine(new Pen(Color.DarkOrange), Bus.Left + Bus.Width / 2, Bus.Top + Bus.Height, Bus.Left + Bus.Width / 2 + 1, Bus.Top + Bus.Height + 1);
+                    this.Map.CreateGraphics().DrawLine(new Pen(Color.DarkOrange), Bus.Left + Bus.Width / 2, Bus.Top - 1, Bus.Left + Bus.Width / 2 + 1, Bus.Top - 1);
+   
                 }
                 else
 
-                    if (GetDistance((double)Bus.Left, (double)Bus.Top, (double)Epicenters[i].x, (double)Epicenters[i].y) < Epicenters[i].radius)
+                    if (GetDistance((double)Bus.Left + Bus.Width / 2, (double)Bus.Top + Bus.Height / 2, (double)Epicenters[i].x, (double)Epicenters[i].y) < Epicenters[i].radius/2)
                 {
 
-                     this.Map.CreateGraphics().DrawLine(new Pen(Color.Yellow), Bus.Left + Bus.Width / 2, Bus.Top + Bus.Height, Bus.Left + Bus.Width / 2 + 1, Bus.Top + Bus.Height + 1);
+                    this.Map.CreateGraphics().DrawLine(new Pen(Color.Yellow), Bus.Left + Bus.Width / 2, Bus.Top + Bus.Height, Bus.Left + Bus.Width / 2 + 1, Bus.Top + Bus.Height + 1);
                     this.Map.CreateGraphics().DrawLine(new Pen(Color.Yellow), Bus.Left + Bus.Width / 2, Bus.Top - 1, Bus.Left + Bus.Width / 2 + 1, Bus.Top - 1);
 
                 }
+               
             }
         }
-        public void Stop()
-        {
-
-            Bus.Left = (int)x - 20;
-            Bus.Top = (int)y - 1;
-
-        }
+   
         public void Move()
         {
             if (TurnBack == false)
             {
-                if (stop[PositionAt].x == V[PositionAt].x && stop[PositionAt].y == V[PositionAt].y)
-                {
+            //    if (stop[PositionAt].x == V[PositionAt].x && stop[PositionAt].y == V[PositionAt].y)
+            //    { 
+            //        System.Threading.Thread.Sleep(3000);
+            //        PositionAt++;
+            //    }
+            //    else
+            //    {
                     if ((TurnBack == false) && (Math.Abs((Math.Abs(x) + Math.Abs(y)) - (Math.Abs((V[PositionAt].x) + Math.Abs(V[PositionAt].y))))) > 3)
                     {
-
                         DetectEpicenter();
 
-                        x -= Math.Sin(angle);
-                        y -= Math.Cos(angle);
+
+                        x -= Math.Sin(angle) * 4;
+                        y -= Math.Cos(angle) * 4;
 
                         Bus.Left = (int)x;
                         Bus.Top = (int)y;
@@ -313,40 +338,7 @@ namespace SystAnalys_lr1
                         }
                     }
                 }
-                else
-                {
-                    //  System.Threading.Thread.Sleep(5000);
-                    if ((TurnBack == false) && (Math.Abs((Math.Abs(x) + Math.Abs(y)) - (Math.Abs((V[PositionAt].x) + Math.Abs(V[PositionAt].y))))) > 3)
-                    {
-                        DetectEpicenter();
-
-
-                        x -= Math.Sin(angle) * 2;
-                        y -= Math.Cos(angle) * 2;
-
-                        Bus.Left = (int)x;
-                        Bus.Top = (int)y;
-
-                    }
-
-                    else
-                    {
-                        if (PositionAt >= V.Count - 1)
-                        {
-                            TurnBack = true;
-                            PositionAt = PositionAt - 1;
-                            angle = GetAngle(V[PositionAt].x, V[PositionAt].y);
-
-
-                        }
-                        else
-                        {
-                            PositionAt++;
-                            angle = GetAngle(V[PositionAt].x, V[PositionAt].y);
-                        }
-                    }
-                }
-            }
+            //}
             if (TurnBack == true)
             {
                 if (stop[PositionAt].x == V[PositionAt].x && stop[PositionAt].y == V[PositionAt].y)
@@ -428,6 +420,7 @@ namespace SystAnalys_lr1
             this.Map.CreateGraphics().FillEllipse(new SolidBrush(Color.FromArgb(128, 255, 255, 0)), x - radius / 2, y - radius / 2, radius, radius);
             this.Map.CreateGraphics().FillEllipse(new SolidBrush(Color.FromArgb(128, 255, 128, 0)), (x + radius / 4) - radius / 2, (y + radius / 4) - radius / 2, radius / 2, radius / 2);
             this.Map.CreateGraphics().FillEllipse(new SolidBrush(Color.FromArgb(128, 255, 0, 0)), ((int)(x + (double)radius / 2.7)) - radius / 2, ((int)(y + (double)radius / 2.7)) - radius / 2, radius / 4, radius / 4);
+            //this.Map.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(128, 255, 255, 0)), x - radius / 2, y - radius / 2, radius, radius);
         }
     }
 }

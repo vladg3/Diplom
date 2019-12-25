@@ -9,12 +9,11 @@ namespace SystAnalys_lr1
     {
         List<Epicenter> Epics;
         DrawGraph G;
+        DisplayEpicenters Ep;
         List<Vertex> route7;
         List<Vertex> route23;
         List<Vertex> route62;
         List<Vertex> route404;
-
-
         List<Vertex> route20;
         List<Vertex> route43;
         List<Vertex> route107;
@@ -25,6 +24,29 @@ namespace SystAnalys_lr1
         static BusPark Bus7_1, Bus7_2, Bus7_3, Bus7_4, Bus7_5, Bus7_6, Bus7_7, Bus7_8, Bus7_9, Bus7_10, Bus7_11, Bus7_12, Bus7_13, Bus7_14, Bus7_15, Bus7_16, Bus23_1,
             Bus23_2, Bus62_1, Bus404_1, Bus404_2,
             Bus_107, Bus_43, Bus_20;
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            Bus7_1.Start();
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            
+            Bus23_1.Move();
+            Bus23_2.Move();
+        }
+
+        private void button1_KeyDown(object sender, KeyEventArgs e)
+        {
+            timer1.Start();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            timer1.Stop();
+        }
 
         private void sheet_MouseClick(object sender, MouseEventArgs e)
         {
@@ -95,13 +117,28 @@ namespace SystAnalys_lr1
 
             AddBuses();
 
-            timer1.Interval = 1;
-            timer1.Start();
+            //timer1.Interval = 1;
+            //timer1.Start();
+
+            //timer2.Interval = 1;
+            //timer2.Start();
+
+
+
+
+            DisplayEpicenters Ep = new DisplayEpicenters(Epics);
+
+            Ep.Show();
+            Ep.Draw();
+
         }
 
         private void AddBuses()
         {
             Bus7_1 = new BusPark(route7, pictureBus7_1, 0, stop, pictureBox5, Epics);
+
+          //  Bus7_1.Start();
+
             Bus7_2 = new BusPark(route7, pictureBox7_3, 10, stop, pictureBox5, Epics);
             Bus7_3 = new BusPark(route7, pictureBus7_2, 20, stop, pictureBox5, Epics);
             Bus7_4 = new BusPark(route7, pictureBox1, 1, stop, pictureBox5, Epics);
@@ -119,6 +156,7 @@ namespace SystAnalys_lr1
             Bus7_16 = new BusPark(route7, pictureBox7, 10, true, stop, pictureBox5, Epics);
 
             Bus23_1 = new BusPark(route23, pictureBus23_1, 5, stop, pictureBox5, Epics);
+            Bus23_1.Start();
             Bus23_2 = new BusPark(route23, pictureBus23_2, 14, stop, pictureBox5, Epics);
             Bus62_1 = new BusPark(route62, pictureBus62_1, 1, stop, pictureBox5, Epics);
             Bus404_1 = new BusPark(route404, pictureBus404_1, 1, stop, pictureBox5, Epics);
@@ -154,6 +192,7 @@ namespace SystAnalys_lr1
             Epics.Add(new Epicenter(pictureBox5, 800, 100, 220));
             Epics.Add(new Epicenter(pictureBox5, 400, 370, 120));
             Epics.Add(new Epicenter(pictureBox5, 900, 790, 134));
+            Epics.Add(new Epicenter(pictureBox5, 817, 395, 300));
         }
 
 
@@ -161,42 +200,44 @@ namespace SystAnalys_lr1
         {
             for (int i = 0; i < Epics.Count; i++)
             {
-                Epics[i].DrawEpicenter();
+                Epics[i].DrawEpicenter(pictureBox5);
             }
+           
+            
         }
 
 
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            Bus7_1.Move();
-            Bus7_2.Move();
-            Bus7_3.Move();
-            Bus7_4.Move();
-            Bus7_5.Move();
-            Bus7_6.Move();
-            Bus7_7.Move();
-            Bus7_8.Move();
-            Bus7_9.Move();
-            Bus7_10.Move();
-            Bus7_11.Move();
-            Bus7_12.Move();
-            Bus7_13.Move();
-            Bus7_14.Move();
-            Bus7_15.Move();
-            Bus7_16.Move();
-            Bus23_1.Move();
-            Bus23_2.Move();
-            Bus62_1.Move();
-            Bus404_1.Move();
-            Bus404_2.Move();
+            //Bus7_1.Move();
+            //Bus7_2.Move();
+            //Bus7_3.Move();
+            //Bus7_4.Move();
+            //Bus7_5.Move();
+            //Bus7_6.Move();
+            //Bus7_7.Move();
+            //Bus7_8.Move();
+            //Bus7_9.Move();
+            //Bus7_10.Move();
+            //Bus7_11.Move();
+            //Bus7_12.Move();
+            //Bus7_13.Move();
+            //Bus7_14.Move();
+            //Bus7_15.Move();
+            //Bus7_16.Move();
 
-            Bus_43.Move();
+            //Bus23_2.Move();
+            //Bus62_1.Move();
+            //Bus404_1.Move();
+            //Bus404_2.Move();
 
-            Bus_107.Move();
+            //Bus_43.Move();
+
+            //Bus_107.Move();
 
 
-            Bus_20.Move();
+            //Bus_20.Move();
         }
 
 

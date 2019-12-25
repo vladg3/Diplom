@@ -46,6 +46,12 @@
   <ItemGroup>
     <Compile Include="AllRotations.cs" />
     <Compile Include="CodeFile.cs" />
+    <Compile Include="DisplayEpicenters.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DisplayEpicenters.Designer.cs">
+      <DependentUpon>DisplayEpicenters.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,6 +63,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DisplayEpicenters.resx">
+      <DependentUpon>DisplayEpicenters.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

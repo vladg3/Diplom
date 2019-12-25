@@ -149,27 +149,27 @@ namespace SystAnalys_lr1
 
         public static List<Vertex> GetStop()
         {
-            stop.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(0, 642))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(0, 642))].Y));
+            stop.Add(new Vertex(AllRotationsPoints[0].X, AllRotationsPoints[0].Y));
             stop.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(164, 620))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(164, 620))].Y));
-            stop.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(163, 579))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(163, 579))].Y));
+            stop.Add(new Vertex(AllRotationsPoints[0].X, AllRotationsPoints[0].Y));
             stop.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(179, 563))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(179, 563))].Y));
-            stop.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(167, 513))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(167, 513))].Y));
+            stop.Add(new Vertex(AllRotationsPoints[0].X, AllRotationsPoints[0].Y));
             stop.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(213, 484))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(213, 484))].Y));
             stop.Add(route7[1]);
-            stop.Add(route7[2]);
+            stop.Add(new Vertex(AllRotationsPoints[0].X, AllRotationsPoints[0].Y));
             stop.Add(route7[3]);
-            stop.Add(route7[4]);
+            stop.Add(new Vertex(AllRotationsPoints[0].X, AllRotationsPoints[0].Y));
             stop.Add(route7[5]);
-            stop.Add(route7[6]);
+            stop.Add(new Vertex(AllRotationsPoints[0].X, AllRotationsPoints[0].Y));
             stop.Add(route7[7]);
-            stop.Add(route7[8]);
+            stop.Add(new Vertex(AllRotationsPoints[0].X, AllRotationsPoints[0].Y));
             stop.Add(route7[9]);
-            stop.Add(route7[14]);
-            stop.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(814, 608))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(814, 608))].Y));
-            stop.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(912, 736))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(912, 736))].Y));
-            stop.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(728, 871))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(728, 871))].Y));
-            stop.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(912, 736))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(912, 736))].Y));
-            stop.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(728, 871))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(728, 871))].Y));
+            stop.Add(new Vertex(AllRotationsPoints[0].X, AllRotationsPoints[0].Y));
+            stop.Add(new Vertex(AllRotationsPoints[16].X, AllRotationsPoints[16].Y));
+            stop.Add(new Vertex(AllRotationsPoints[0].X, AllRotationsPoints[0].Y));
+            stop.Add(new Vertex(AllRotationsPoints[18].X, AllRotationsPoints[18].Y));
+            //stop.Add(new Vertex(AllRotationsPoints[0].X, AllRotationsPoints[0].Y));
+            //stop.Add(new Vertex(AllRotationsPoints[20].X, AllRotationsPoints[20].Y));
 
             return stop;
         }
@@ -222,6 +222,8 @@ namespace SystAnalys_lr1
             route23.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(888, 278))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(888, 278))].Y));
             route23.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(890, 187))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(890, 187))].Y));
             route23.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1034, 187))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1034, 187))].Y));
+          //  route23.Add(new Vertex(AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1034, 187))].X, AllRotationsPoints[AllRotationsPoints.IndexOf(new Point(1034, 187))].Y));
+
             return route23;
         }
 

@@ -163,6 +163,7 @@ namespace SystAnalys_lr1
     }
     class BusPark
     {
+        Timer Timer;
         private List<Epicenter> Epicenters;
         private PictureBox Map;
         private List<Vertex> V;
@@ -174,6 +175,9 @@ namespace SystAnalys_lr1
 
         public BusPark(List<Vertex> m, PictureBox Bus, int PositionAt, PictureBox Map, List<Epicenter> Epicenters)
         {
+            Timer = new Timer();
+            Timer.Interval = 1;
+
             this.Map = Map;
             this.Epicenters = new List<Epicenter>();
             this.Epicenters = Epicenters;
@@ -192,6 +196,9 @@ namespace SystAnalys_lr1
 
         public BusPark(List<Vertex> m, PictureBox Bus, int PositionAt, List<Vertex> s, PictureBox Map, List<Epicenter> Epicenters)
         {
+            Timer = new Timer();
+            Timer.Interval = 1;
+
             this.Map = Map;
             this.Epicenters = new List<Epicenter>();
             this.Epicenters = Epicenters;
@@ -215,6 +222,9 @@ namespace SystAnalys_lr1
 
         public BusPark(List<Vertex> m, PictureBox Bus, int PositionAt, bool Turn, PictureBox Map, List<Epicenter> Epicenters)
         {
+            Timer = new Timer();
+            Timer.Interval = 1;
+
             this.Map = Map;
             this.Epicenters = new List<Epicenter>();
             this.Epicenters = Epicenters;
@@ -233,6 +243,9 @@ namespace SystAnalys_lr1
 
         public BusPark(List<Vertex> m, PictureBox Bus, int PositionAt, bool Turn, List<Vertex> s, PictureBox Map, List<Epicenter> Epicenters)
         {
+            Timer = new Timer();
+            Timer.Interval = 1;
+
             this.Map = Map;
             this.Epicenters = new List<Epicenter>();
             this.Epicenters = Epicenters;
@@ -296,22 +309,77 @@ namespace SystAnalys_lr1
                
             }
         }
+
+
+        private void TimerEventProcessor(object sender, EventArgs e)
+        {
+            Move();
+        }
+
+        public void Start()
+        {
+            Timer.Tick += new EventHandler(TimerEventProcessor);
+            Timer.Interval = 1;
+            Timer.Start();
+        }
    
         public void Move()
         {
-            if (TurnBack == false)
+            if(TurnBack == false)
             {
-            //    if (stop[PositionAt].x == V[PositionAt].x && stop[PositionAt].y == V[PositionAt].y)
-            //    { 
-            //        System.Threading.Thread.Sleep(3000);
-            //        PositionAt++;
-            //    }
-            //    else
-            //    {
+                if (stop[PositionAt].x == V[PositionAt].x && stop[PositionAt].y == V[PositionAt].y)
+                {
+                    if ((TurnBack == false) && (Math.Abs((Math.Abs(x) + Math.Abs(y)) - (Math.Abs((V[PositionAt].x) + Math.Abs(V[PositionAt].y))))) > 3)
+                    {
+                        DetectEpicenter();
+                                         
+
+                        x -= Math.Sin(angle) * 4;
+                        y -= Math.Cos(angle) * 4;
+
+                        Bus.Left = (int)x;
+                        Bus.Top = (int)y;
+
+                        Timer.Interval = 1000;
+                        PositionAt++;
+
+                    }
+
+                    else
+                    {
+                        if (PositionAt >= V.Count - 1)
+                        {
+                            TurnBack = true;
+                            PositionAt = PositionAt - 1;
+                            angle = GetAngle(V[PositionAt].x, V[PositionAt].y);
+
+
+                        }
+                        else
+                        {
+                            PositionAt++;
+                            angle = GetAngle(V[PositionAt].x, V[PositionAt].y);
+                        }
+                    }
+                    //  System.Threading.Thread.Sleep(500);
+                    //Timer.Enabled = true;
+
+                }
+                else
+                {
+
+                    //  Timer.Enabled = false;
+                    //if(Timer.Enabled == true)
+                    //{
+                    //    Timer.Interval = 1;
+                    //    Timer.Start();
+                    //}
                     if ((TurnBack == false) && (Math.Abs((Math.Abs(x) + Math.Abs(y)) - (Math.Abs((V[PositionAt].x) + Math.Abs(V[PositionAt].y))))) > 3)
                     {
                         DetectEpicenter();
 
+                        Timer.Interval = 1;
+                     //   PositionAt++;
 
                         x -= Math.Sin(angle) * 4;
                         y -= Math.Cos(angle) * 4;
@@ -338,40 +406,22 @@ namespace SystAnalys_lr1
                         }
                     }
                 }
-            //}
+            }
             if (TurnBack == true)
             {
                 if (stop[PositionAt].x == V[PositionAt].x && stop[PositionAt].y == V[PositionAt].y)
                 {
-                    if ((Math.Abs((Math.Abs(x) + Math.Abs(y)) - (Math.Abs(V[PositionAt].x + Math.Abs(V[PositionAt].y))))) > 3)
-                    {
-                        DetectEpicenter();
-                        x -= Math.Sin(angle);
-                        y -= Math.Cos(angle);
-
-
-                        Bus.Left = (int)x;
-                        Bus.Top = (int)y;
-                    }
-                    else
-                    {
-                        if (PositionAt == 0)
-                        {
-                            TurnBack = false;
-                        }
-                        else
-                        {
-                            PositionAt = PositionAt - 1;
-                            angle = GetAngle(V[PositionAt].x, V[PositionAt].y);
-                        }
-
-                    }
+                    //  System.Threading.Thread.Sleep(500);
+                    Timer.Interval = 100;
+                    PositionAt ++;
                 }
                 else
                 {
+                    
                     if ((Math.Abs((Math.Abs(x) + Math.Abs(y)) - (Math.Abs(V[PositionAt].x + Math.Abs(V[PositionAt].y))))) > 3)
                     {
                         DetectEpicenter();
+                        Timer.Interval = 1;
                         x -= Math.Sin(angle) * 2;
                         y -= Math.Cos(angle) * 2;
 
@@ -397,10 +447,10 @@ namespace SystAnalys_lr1
 
         }
     }
-    class Epicenter
+    public class Epicenter
     {
 
-        private PictureBox Map;
+        //private PictureBox Map;
         public int x, y, radius;
         public Epicenter(PictureBox Map, int x, int y, int radius)
         {
@@ -408,18 +458,18 @@ namespace SystAnalys_lr1
             this.y = y;
             this.radius = radius;
             //this.height = height;
-            this.Map = Map;
+            //this.Map = Map;
 
             //this.Map.CreateGraphics().FillEllipse(new SolidBrush(Color.FromArgb(128, 255, 255, 0)), x-radius/2, y-radius/2, radius, radius);
             //this.Map.CreateGraphics().FillEllipse(new SolidBrush(Color.FromArgb(128, 255, 128, 0)), (x + radius / 4)-radius / 2, (y + radius / 4)-radius / 2, radius / 2, radius / 2);
             //this.Map.CreateGraphics().FillEllipse(new SolidBrush(Color.FromArgb(128, 255, 0, 0)), ((int)(x + (double)radius / 2.7))-radius / 2, ((int)(y + (double)radius / 2.7)) - radius / 2, radius / 4, radius / 4) ;
         }
-        public void DrawEpicenter()
+        public void DrawEpicenter(PictureBox Map)
         {
 
-            this.Map.CreateGraphics().FillEllipse(new SolidBrush(Color.FromArgb(128, 255, 255, 0)), x - radius / 2, y - radius / 2, radius, radius);
-            this.Map.CreateGraphics().FillEllipse(new SolidBrush(Color.FromArgb(128, 255, 128, 0)), (x + radius / 4) - radius / 2, (y + radius / 4) - radius / 2, radius / 2, radius / 2);
-            this.Map.CreateGraphics().FillEllipse(new SolidBrush(Color.FromArgb(128, 255, 0, 0)), ((int)(x + (double)radius / 2.7)) - radius / 2, ((int)(y + (double)radius / 2.7)) - radius / 2, radius / 4, radius / 4);
+            Map.CreateGraphics().FillEllipse(new SolidBrush(Color.FromArgb(128, 255, 255, 0)), x - radius / 2, y - radius / 2, radius, radius);
+            Map.CreateGraphics().FillEllipse(new SolidBrush(Color.FromArgb(128, 255, 128, 0)), (x + radius / 4) - radius / 2, (y + radius / 4) - radius / 2, radius / 2, radius / 2);
+            Map.CreateGraphics().FillEllipse(new SolidBrush(Color.FromArgb(128, 255, 0, 0)), ((int)(x + (double)radius / 2.7)) - radius / 2, ((int)(y + (double)radius / 2.7)) - radius / 2, radius / 4, radius / 4);
             //this.Map.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(128, 255, 255, 0)), x - radius / 2, y - radius / 2, radius, radius);
         }
     }

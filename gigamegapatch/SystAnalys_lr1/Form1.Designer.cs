@@ -28,12 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.about = new System.Windows.Forms.ToolStripMenuItem();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox17 = new System.Windows.Forms.PictureBox();
             this.pictureBox16 = new System.Windows.Forms.PictureBox();
@@ -62,8 +59,7 @@
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.sheet = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.button2 = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).BeginInit();
@@ -91,6 +87,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBus7_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -101,7 +98,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1443, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1500, 24);
             this.menuStrip1.TabIndex = 12;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.Visible = false;
@@ -111,25 +108,10 @@
             this.about.Name = "about";
             this.about.Size = new System.Drawing.Size(12, 20);
             // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.label1.Location = new System.Drawing.Point(10, 56);
-            this.label1.MaximumSize = new System.Drawing.Size(100, 100);
-            this.label1.MinimumSize = new System.Drawing.Size(10, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(10, 13);
-            this.label1.TabIndex = 39;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(169, 125);
+            this.label2.Location = new System.Drawing.Point(354, 37);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
@@ -408,41 +390,33 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(151, 56);
+            this.button1.Location = new System.Drawing.Point(12, 694);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 44;
-            this.button1.Text = "Stop";
+            this.button1.Text = "Матрица";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            this.button1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button1_KeyDown);
             // 
-            // timer2
+            // dataGridView1
             // 
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(325, 45);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 45;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(12, 723);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(424, 180);
+            this.dataGridView1.TabIndex = 45;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1500, 904);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox17);
             this.Controls.Add(this.pictureBox16);
             this.Controls.Add(this.pictureBox15);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox14);
             this.Controls.Add(this.pictureBox13);
             this.Controls.Add(this.pictureBox12);
@@ -468,8 +442,9 @@
             this.Controls.Add(this.pictureBox5);
             this.Controls.Add(this.sheet);
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(500, 500);
             this.Name = "Form1";
-            this.Text = "SWD 0.13 (Pochemu tak nahui edition) Po karte clickay chtoby krugi pokazat";
+            this.Text = "SWD 0.15";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -499,6 +474,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBus7_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -509,7 +485,6 @@
         private System.Windows.Forms.PictureBox sheet;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem about;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.PictureBox pictureBus7_1;
         private System.Windows.Forms.PictureBox pictureBox7_3;
         private System.Windows.Forms.PictureBox pictureBus7_2;
@@ -532,15 +507,13 @@
         private System.Windows.Forms.PictureBox pictureBox13;
         private System.Windows.Forms.PictureBox pictureBox14;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.PictureBox pictureBox15;
         private System.Windows.Forms.PictureBox pictureBox16;
         private System.Windows.Forms.PictureBox pictureBox17;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Timer timer2;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 

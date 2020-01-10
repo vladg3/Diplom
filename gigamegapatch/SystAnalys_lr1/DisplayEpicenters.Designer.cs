@@ -34,7 +34,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1500, 904);
+            this.ClientSize = new System.Drawing.Size(1836, 904);
             this.Name = "DisplayEpicenters";
             this.Text = "DisplayEpicenters (NUZHNO PUT\' NASTROIT V FORM LOADERE I BUDET RABOTAT\')";
             this.Load += new System.EventHandler(this.DisplayEpicenters_Load);

@@ -38,7 +38,7 @@ namespace SystAnalys_lr1
             pictureBox2.Height = 904;
             //Bitmap image1 = new Bitmap("Resources/xxx.png");
             //pictureBox2.Image = image1;
-            pictureBox2.Load("C:/Users/User/Desktop/12321321/gigamegapatch/SystAnalys_lr1/Resources/Map.PNG");
+            pictureBox2.Load(@"C:\Users\User\Desktop\1434\gigamegapatch\SystAnalys_lr1\Resources\Map.PNG");
 
             pictureBox2.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox2_Paint);
 
@@ -48,7 +48,7 @@ namespace SystAnalys_lr1
         }
         private void pictureBox2_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
         {
-            // Create a local version of the graphics object for the PictureBox.
+
             Graphics g = e.Graphics;
 
             for (int i = 0; i < Epics.Count; i++)

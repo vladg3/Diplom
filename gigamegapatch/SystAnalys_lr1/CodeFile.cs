@@ -173,8 +173,14 @@ namespace SystAnalys_lr1
         List<Vertex> stop;
         private PictureBox Bus;
         private int route;
+        private double _date;
 
-      
+        public double Date
+        {
+            get { return _date; }
+            set { _date = value; }
+        }
+
 
         public BusPark(List<Vertex> m, PictureBox Bus, int PositionAt, List<Vertex> s)
         {
@@ -304,7 +310,7 @@ namespace SystAnalys_lr1
 
                     this.Map.CreateGraphics().DrawLine(new Pen(Color.DarkRed), Bus.Left + Bus.Width / 2, Bus.Top + Bus.Height, Bus.Left + Bus.Width / 2 + 1, Bus.Top + Bus.Height + 1);
                     this.Map.CreateGraphics().DrawLine(new Pen(Color.DarkRed), Bus.Left + Bus.Width / 2, Bus.Top - 1, Bus.Left + Bus.Width / 2 + 1, Bus.Top - 1);
-
+                    this.Date += 2;
 
                 }
                 else
@@ -313,7 +319,7 @@ namespace SystAnalys_lr1
 
                     this.Map.CreateGraphics().DrawLine(new Pen(Color.DarkOrange), Bus.Left + Bus.Width / 2, Bus.Top + Bus.Height, Bus.Left + Bus.Width / 2 + 1, Bus.Top + Bus.Height + 1);
                     this.Map.CreateGraphics().DrawLine(new Pen(Color.DarkOrange), Bus.Left + Bus.Width / 2, Bus.Top - 1, Bus.Left + Bus.Width / 2 + 1, Bus.Top - 1);
-   
+                    this.Date += 5;
                 }
                 else
 
@@ -322,11 +328,13 @@ namespace SystAnalys_lr1
 
                     this.Map.CreateGraphics().DrawLine(new Pen(Color.Yellow), Bus.Left + Bus.Width / 2, Bus.Top + Bus.Height, Bus.Left + Bus.Width / 2 + 1, Bus.Top + Bus.Height + 1);
                     this.Map.CreateGraphics().DrawLine(new Pen(Color.Yellow), Bus.Left + Bus.Width / 2, Bus.Top - 1, Bus.Left + Bus.Width / 2 + 1, Bus.Top - 1);
-
+                    this.Date += 10;
                 }
                
             }
         }
+
+
 
 
         private void TimerEventProcessor(object sender, EventArgs e)
@@ -373,9 +381,9 @@ namespace SystAnalys_lr1
                     {
                         if (PositionAt >= V.Count - 1)
                         {
-                            TurnBack = true;
-                            PositionAt = PositionAt - 1;
-                            angle = GetAngle(V[PositionAt].x, V[PositionAt].y);
+                            //TurnBack = true;
+                            //PositionAt = PositionAt - 1;
+                            //angle = GetAngle(V[PositionAt].x, V[PositionAt].y);
 
 
                         }
@@ -410,7 +418,7 @@ namespace SystAnalys_lr1
                     {
                         if (PositionAt == 0)
                         {
-                            TurnBack = false;
+                           // TurnBack = false;
                         }
                         else
                         {
@@ -450,4 +458,25 @@ namespace SystAnalys_lr1
             //this.Map.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(128, 255, 255, 0)), x - radius / 2, y - radius / 2, radius, radius);
         }
     }
+
+    public class grid_part
+    {
+
+  
+        public int x, y, width, heigh;
+        public grid_part( int x, int y,  int heigh, int width)
+        {
+            this.width = width;
+            this.heigh = heigh;    
+            this.x = x;
+            this.y = y;
+        }
+    
+        public void DrawPart(Graphics g)
+        {
+            g.DrawRectangle(new Pen(Color.Black, 1), x , y , width, heigh);
+        }
+    }
+
+
 }

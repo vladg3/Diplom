@@ -9,9 +9,26 @@ namespace SystAnalys_lr1
     public partial class Form1 : Form
     {
         List<Epicenter> Epics;
+        List<grid_part> TheGrid;
         DrawGraph G;
         DisplayEpicenters Ep;
+        static BusPark Bus7_1, Bus7_2, Bus7_3, Bus7_4, Bus7_5, Bus7_6, Bus7_7, Bus7_8, Bus7_9, Bus7_10, Bus7_11, Bus7_12, Bus7_13, Bus7_14, Bus7_15, Bus7_16, Bus23_1,
+        Bus23_2, Bus62_1, Bus404_1, Bus404_2,
+        Bus_107, Bus_43, Bus_20;
+
+        static List<BusPark> park7 = new List<BusPark>();//{ Bus7_1, Bus7_2, Bus7_3, Bus7_4, Bus7_5, Bus7_6, Bus7_7, Bus7_8, Bus7_9, Bus7_10, Bus7_11, Bus7_12, Bus7_13, Bus7_14, Bus7_15, Bus7_16 };
+        static List<BusPark> park23 = new List<BusPark>();// { Bus23_1, Bus23_2};
+        static List<BusPark> park62 = new List<BusPark>();// { Bus62_1 };
+        static List<BusPark> park404 = new List<BusPark>();// { Bus404_1, Bus404_2 };
+        static List<BusPark> park20 = new List<BusPark>();//{ Bus_20 };
+        static List<BusPark> park43 = new List<BusPark>();//{ Bus_43 };
+        static List<BusPark> park107 = new List<BusPark>();//{ Bus_107 };
+
+
         static List<Vertex> route7 = new List<Vertex>();
+
+      
+
         static List<Vertex> route23 = new List<Vertex>();
         static List<Vertex> route62 = new List<Vertex>();
         static List<Vertex> route404 = new List<Vertex>();
@@ -22,13 +39,15 @@ namespace SystAnalys_lr1
         List<Vertex> stop;
         List<Edge> E;
         List<Point> AllRotationsPoints;
-        static BusPark Bus7_1, Bus7_2, Bus7_3, Bus7_4, Bus7_5, Bus7_6, Bus7_7, Bus7_8, Bus7_9, Bus7_10, Bus7_11, Bus7_12, Bus7_13, Bus7_14, Bus7_15, Bus7_16, Bus23_1,
-            Bus23_2, Bus62_1, Bus404_1, Bus404_2,
-            Bus_107, Bus_43, Bus_20;
 
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //  timer1.Start();
+        }
 
         static List<BusPark> buses;
+        static List<List<BusPark>> busesPark;
 
         static Dictionary<int, List<Vertex>> routes = new Dictionary<int, List<Vertex>>() { { 7, route7 }, { 23, route23 }, { 62, route62 }, { 404, route404 },
                                                                                            { 20, route20 }, { 43, route43 }, { 107, route107 }};
@@ -52,43 +71,72 @@ namespace SystAnalys_lr1
 
 
 
-
-        void Matrix()
+        private void Matrix()
         {
-            buses = new List<BusPark>() { Bus7_1, Bus23_1, Bus7_2, Bus7_3, Bus7_4, Bus7_5, Bus7_6, Bus7_7, Bus7_8, Bus7_9, Bus7_10, Bus7_11, Bus7_12, Bus7_13, Bus7_14, Bus7_15, Bus7_16,
-            Bus23_2, Bus62_1, Bus404_1, Bus404_2,
-            Bus_107, Bus_43, Bus_20 };
 
-            int[,] myArr = new int[routes.Count, buses.Count];
+            park7 = new List<BusPark>() { Bus7_1, Bus7_2, Bus7_3, Bus7_4, Bus7_5, Bus7_6, Bus7_7, Bus7_8, Bus7_9, Bus7_10, Bus7_11, Bus7_12, Bus7_13, Bus7_14, Bus7_15, Bus7_16 };
+            park23 = new List<BusPark>() { Bus23_1, Bus23_2 };
+            park62 = new List<BusPark>() { Bus62_1 };
+            park404 = new List<BusPark>() { Bus404_1, Bus404_2 };
+            park20 = new List<BusPark>() { Bus_20 };
+            park43 = new List<BusPark>() { Bus_43 };
+            park107 = new List<BusPark>() { Bus_107 };
+            busesPark = new List<List<BusPark>>() { park7, park23, park62, park404, park20, park43, park107 };
+
+            int parkSize = 0;
+
+            foreach (var x in busesPark)
+            {
+                parkSize = Math.Max(parkSize, x.Count);
+            }
+
+            int[,] myArr = new int[routes.Count, parkSize];
 
             dataGridView1.RowCount = routes.Count;
-            dataGridView1.ColumnCount = buses.Count;
+            dataGridView1.ColumnCount = parkSize + 1;
 
-            for (int i = 1; i < buses.Count; i++)
+            for (int i = 1; i < parkSize; i++)
             {
                 dataGridView1.Columns[i - 1].HeaderText = i.ToString();
-                if (i + 1 == buses.Count)
+                if (i + 1 == parkSize)
                 {
-                    dataGridView1.Columns[i].HeaderText = buses.Count.ToString();
+                    dataGridView1.Columns[i].HeaderText = parkSize.ToString();
                 }
             }
+
+            dataGridView1.Columns[parkSize].HeaderText = "Total";
 
             for (int i = 0; i < routes.Count; ++i)
             {
                 dataGridView1.Rows[i].HeaderCell.Value = routes.ElementAt(i).Key.ToString();
-                for (int j = 0; j < buses.Count; ++j)
+            }
+            int total;
+            for (int i = 0; i < busesPark.Count; ++i)
+            {
+                total = 0;
+                for (int j = 0; j < parkSize + 1; ++j)
                 {
-                    if (buses[j].getRoute() == routes.ElementAt(i).Key)
+                    if (j < busesPark[i].Count)
                     {
-                        myArr[i, j] = 1;
+                        if (busesPark[i][j].getRoute() == routes.ElementAt(i).Key)
+                        {
+                            myArr[i, j] = 1;
+                            total++;
+                        }
+                        else
+                        {
+                            myArr[i, j] = 0;
+                        }
+                        dataGridView1.Rows[i].Cells[j].Value = myArr[i, j];
                     }
                     else
                     {
-                        myArr[i, j] = 0;
+                        dataGridView1.Rows[i].Cells[j].Value = 0;
                     }
-                    dataGridView1.Rows[i].Cells[j].Value = myArr[i, j];
+                    dataGridView1.Rows[i].Cells[parkSize].Value = total;
                 }
             }
+
 
 
 
@@ -97,6 +145,7 @@ namespace SystAnalys_lr1
         public Form1()
         {
             InitializeComponent();
+            //List<grid_part> TheGrid = new List<grid_part>();
             AllRotations rotations = new AllRotations();
             G = new DrawGraph(sheet.Width, sheet.Height);
             E = new List<Edge>();
@@ -122,29 +171,53 @@ namespace SystAnalys_lr1
             AddBuses();
 
 
+
             DisplayEpicenters Ep = new DisplayEpicenters(Epics);
 
             Ep.Show();
-            Ep.Draw();
+
+
+            CreateGrid(TheGrid);
 
         }
+        private void CreateGrid(List<grid_part> TheGrid)
+        {
+            TheGrid = new List<grid_part>();
+            for (int i = 0; i < pictureBox5.Height; i += pictureBox5.Height / 8)
+            {
+                for (int j = 0; j < pictureBox5.Width; j += pictureBox5.Width / 16)
+                {
 
+                    TheGrid.Add(new grid_part(j, i, pictureBox5.Height / 8, pictureBox5.Width / 16));
+
+                }
+            }
+            void pictureBox5_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+            {
+
+                Graphics g = e.Graphics;
+
+                for (int i = 0; i < TheGrid.Count; i++)
+                {
+                    TheGrid[i].DrawPart(g);
+                }
+            }
+            pictureBox5.Paint += new System.Windows.Forms.PaintEventHandler(pictureBox5_Paint);
+
+        }
+       
         private void AddBuses()
         {
             Bus7_1 = new BusPark(route7, pictureBus7_1, 0, stop, pictureBox5, Epics, 7);
             Bus7_1.Start();
-
             Bus7_2 = new BusPark(route7, pictureBox7_3, 10, stop);
             Bus7_2.Start();
-
             Bus7_3 = new BusPark(route7, pictureBus7_2, 20, stop, pictureBox5, Epics, 7);
             Bus7_3.Start();
             Bus7_4 = new BusPark(route7, pictureBox1, 1, stop);
             Bus7_4.Start();
-
             Bus7_5 = new BusPark(route7, pictureBox2, 3, true, stop, pictureBox5, Epics, 7);
             Bus7_5.Start();
-
             Bus7_6 = new BusPark(route7, pictureBox3, 5, stop, pictureBox5, Epics, 7);
             Bus7_6.Start();
             Bus7_7 = new BusPark(route7, pictureBox4, 7, stop);
@@ -165,17 +238,17 @@ namespace SystAnalys_lr1
             Bus7_14.Start();
             Bus7_15 = new BusPark(route7, pictureBox14, 6, stop, pictureBox5, Epics, 7);
             Bus7_15.Start();
-            Bus7_16 = new BusPark(route7, pictureBox7, 10, true, stop);
+            Bus7_16 = new BusPark(route7, pictureBox7, 10, true, stop, pictureBox5, Epics, 7);
             Bus7_16.Start();
 
             Bus23_1 = new BusPark(route23, pictureBus23_1, 5, stop);
-
             Bus23_1.Start();
-
             Bus23_2 = new BusPark(route23, pictureBus23_2, 14, stop, pictureBox5, Epics, 23);
             Bus23_2.Start();
+
             Bus62_1 = new BusPark(route62, pictureBus62_1, 1, stop, pictureBox5, Epics, 62);
             Bus62_1.Start();
+
             Bus404_1 = new BusPark(route404, pictureBus404_1, 1, stop, pictureBox5, Epics, 404);
             Bus404_1.Start();
             Bus404_2 = new BusPark(route404, pictureBus404_2, route404.Count - 1, stop);
@@ -245,37 +318,36 @@ namespace SystAnalys_lr1
         }
 
 
-
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timer1_Tick_1(object sender, EventArgs e)
         {
-            //Bus7_1.Move();
-            //Bus7_2.Move();
-            //Bus7_3.Move();
-            //Bus7_4.Move();
-            //Bus7_5.Move();
-            //Bus7_6.Move();
-            //Bus7_7.Move();
-            //Bus7_8.Move();
-            //Bus7_9.Move();
-            //Bus7_10.Move();
-            //Bus7_11.Move();
-            //Bus7_12.Move();
-            //Bus7_13.Move();
-            //Bus7_14.Move();
-            //Bus7_15.Move();
-            //Bus7_16.Move();
+            buses = new List<BusPark>() { Bus7_1, Bus23_1, Bus7_2, Bus7_3, Bus7_4, Bus7_5, Bus7_6, Bus7_7, Bus7_8, Bus7_9, Bus7_10, Bus7_11, Bus7_12, Bus7_13, Bus7_14, Bus7_15, Bus7_16,
+            Bus23_2, Bus62_1, Bus404_1, Bus404_2,
+            Bus_107, Bus_43, Bus_20 };
 
-            //Bus23_2.Move();
-            //Bus62_1.Move();
-            //Bus404_1.Move();
-            //Bus404_2.Move();
+            int[,] myArr = new int[routes.Count, buses.Count];
 
-            //Bus_43.Move();
+            dataGridView2.RowCount = routes.Count;
+            dataGridView2.ColumnCount = buses.Count;
 
-            //Bus_107.Move();
+            for (int i = 1; i < buses.Count; i++)
+            {
+                dataGridView2.Columns[i - 1].HeaderText = i.ToString();
+                if (i + 1 == buses.Count)
+                {
+                    dataGridView2.Columns[i].HeaderText = buses.Count.ToString();
+                }
+            }
 
+            dataGridView2.Rows[0].HeaderCell.Value = "Данные";
 
-            //Bus_20.Move();
+            for (int j = 0; j < buses.Count; ++j)
+            {
+                myArr[0, j] = (int)buses[j].Date;
+                dataGridView2.Rows[0].Cells[j].Value = myArr[0, j];
+            }
+
+            //label1.Text += Bus7_1.Date.ToString();
+            //label1.Text += "\n";
         }
 
 

@@ -12,29 +12,32 @@ namespace SystAnalys_lr1
         List<grid_part> TheGrid;
         DrawGraph G;
         DisplayEpicenters Ep;
+
+        static List<BusPark> buses;
+        static List<List<BusPark>> busesPark;
+
+        static Dictionary<int, List<Vertex>> routes = new Dictionary<int, List<Vertex>>() { { 7, route7 }, { 23, route23 }, { 62, route62 }, { 404, route404 },
+                                                                                           { 20, route20 }, { 43, route43 }, { 107, route107 }};
+
         static BusPark Bus7_1, Bus7_2, Bus7_3, Bus7_4, Bus7_5, Bus7_6, Bus7_7, Bus7_8, Bus7_9, Bus7_10, Bus7_11, Bus7_12, Bus7_13, Bus7_14, Bus7_15, Bus7_16, Bus23_1,
         Bus23_2, Bus62_1, Bus404_1, Bus404_2,
         Bus_107, Bus_43, Bus_20;
 
-        static List<BusPark> park7 = new List<BusPark>();//{ Bus7_1, Bus7_2, Bus7_3, Bus7_4, Bus7_5, Bus7_6, Bus7_7, Bus7_8, Bus7_9, Bus7_10, Bus7_11, Bus7_12, Bus7_13, Bus7_14, Bus7_15, Bus7_16 };
-        static List<BusPark> park23 = new List<BusPark>();// { Bus23_1, Bus23_2};
-        static List<BusPark> park62 = new List<BusPark>();// { Bus62_1 };
-        static List<BusPark> park404 = new List<BusPark>();// { Bus404_1, Bus404_2 };
-        static List<BusPark> park20 = new List<BusPark>();//{ Bus_20 };
-        static List<BusPark> park43 = new List<BusPark>();//{ Bus_43 };
-        static List<BusPark> park107 = new List<BusPark>();//{ Bus_107 };
+        static List<BusPark> park7;
+        static List<BusPark> park23;
+        static List<BusPark> park62;
+        static List<BusPark> park404;
+        static List<BusPark> park20;
+        static List<BusPark> park43;
+        static List<BusPark> park107;
 
-
-        static List<Vertex> route7 = new List<Vertex>();
-
-      
-
-        static List<Vertex> route23 = new List<Vertex>();
-        static List<Vertex> route62 = new List<Vertex>();
-        static List<Vertex> route404 = new List<Vertex>();
-        static List<Vertex> route20 = new List<Vertex>();
-        static List<Vertex> route43 = new List<Vertex>();
-        static List<Vertex> route107 = new List<Vertex>();
+        static List<Vertex> route7;
+        static List<Vertex> route23;
+        static List<Vertex> route62;
+        static List<Vertex> route404;
+        static List<Vertex> route20;
+        static List<Vertex> route43;
+        static List<Vertex> route107;
 
         List<Vertex> stop;
         List<Edge> E;
@@ -46,11 +49,6 @@ namespace SystAnalys_lr1
             //  timer1.Start();
         }
 
-        static List<BusPark> buses;
-        static List<List<BusPark>> busesPark;
-
-        static Dictionary<int, List<Vertex>> routes = new Dictionary<int, List<Vertex>>() { { 7, route7 }, { 23, route23 }, { 62, route62 }, { 404, route404 },
-                                                                                           { 20, route20 }, { 43, route43 }, { 107, route107 }};
 
 
         private void button1_Click(object sender, EventArgs e)
@@ -59,29 +57,14 @@ namespace SystAnalys_lr1
         }
 
 
-        private void sheet_MouseClick(object sender, MouseEventArgs e)
-        {
-            label2.Text = e.X.ToString() + ";" + e.Y.ToString();
-        }
-
         private void pictureBox5_MouseClick(object sender, MouseEventArgs e)
         {
             label2.Text = e.X.ToString() + ";" + e.Y.ToString();
         }
 
 
-
         private void Matrix()
         {
-
-            park7 = new List<BusPark>() { Bus7_1, Bus7_2, Bus7_3, Bus7_4, Bus7_5, Bus7_6, Bus7_7, Bus7_8, Bus7_9, Bus7_10, Bus7_11, Bus7_12, Bus7_13, Bus7_14, Bus7_15, Bus7_16 };
-            park23 = new List<BusPark>() { Bus23_1, Bus23_2 };
-            park62 = new List<BusPark>() { Bus62_1 };
-            park404 = new List<BusPark>() { Bus404_1, Bus404_2 };
-            park20 = new List<BusPark>() { Bus_20 };
-            park43 = new List<BusPark>() { Bus_43 };
-            park107 = new List<BusPark>() { Bus_107 };
-            busesPark = new List<List<BusPark>>() { park7, park23, park62, park404, park20, park43, park107 };
 
             int parkSize = 0;
 
@@ -145,7 +128,7 @@ namespace SystAnalys_lr1
         public Form1()
         {
             InitializeComponent();
-            //List<grid_part> TheGrid = new List<grid_part>();
+          //  List<grid_part> TheGrid = new List<grid_part>();
             AllRotations rotations = new AllRotations();
             G = new DrawGraph(sheet.Width, sheet.Height);
             E = new List<Edge>();
@@ -168,19 +151,18 @@ namespace SystAnalys_lr1
 
             AddEpicenters();
 
+            CreateGrid();
+
             AddBuses();
-
-
 
             DisplayEpicenters Ep = new DisplayEpicenters(Epics);
 
             Ep.Show();
 
-
-            CreateGrid(TheGrid);
+            
 
         }
-        private void CreateGrid(List<grid_part> TheGrid)
+        private void CreateGrid()
         {
             TheGrid = new List<grid_part>();
             for (int i = 0; i < pictureBox5.Height; i += pictureBox5.Height / 8)
@@ -192,6 +174,7 @@ namespace SystAnalys_lr1
 
                 }
             }
+
             void pictureBox5_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
             {
 
@@ -208,59 +191,71 @@ namespace SystAnalys_lr1
        
         private void AddBuses()
         {
-            Bus7_1 = new BusPark(route7, pictureBus7_1, 0, stop, pictureBox5, Epics, 7);
+            Bus7_1 = new BusPark(route7, pictureBus7_1, 0, stop, pictureBox5, Epics, TheGrid, 7);
             Bus7_1.Start();
-            Bus7_2 = new BusPark(route7, pictureBox7_3, 10, stop);
-            Bus7_2.Start();
-            Bus7_3 = new BusPark(route7, pictureBus7_2, 20, stop, pictureBox5, Epics, 7);
+            //Bus7_2 = new BusPark(route7, pictureBox7_3, 10, stop);
+            //Bus7_2.Start();
+            Bus7_3 = new BusPark(route7, pictureBus7_2, 20, stop, pictureBox5, Epics, TheGrid, 7);
             Bus7_3.Start();
-            Bus7_4 = new BusPark(route7, pictureBox1, 1, stop);
-            Bus7_4.Start();
-            Bus7_5 = new BusPark(route7, pictureBox2, 3, true, stop, pictureBox5, Epics, 7);
-            Bus7_5.Start();
-            Bus7_6 = new BusPark(route7, pictureBox3, 5, stop, pictureBox5, Epics, 7);
-            Bus7_6.Start();
-            Bus7_7 = new BusPark(route7, pictureBox4, 7, stop);
-            Bus7_7.Start();
-            Bus7_8 = new BusPark(route7, pictureBox6, 9, true, stop);
-            Bus7_8.Start();
-            Bus7_9 = new BusPark(route7, pictureBox8, 16, stop, pictureBox5, Epics, 7);
-            Bus7_9.Start();
-            Bus7_10 = new BusPark(route7, pictureBox9, 13, stop, pictureBox5, Epics, 7);
-            Bus7_10.Start();
-            Bus7_11 = new BusPark(route7, pictureBox10, 14, stop, pictureBox5, Epics, 7);
-            Bus7_11.Start();
-            Bus7_12 = new BusPark(route7, pictureBox11, 16, true, stop, pictureBox5, Epics, 7);
-            Bus7_12.Start();
-            Bus7_13 = new BusPark(route7, pictureBox12, 18, stop);
-            Bus7_13.Start();
-            Bus7_14 = new BusPark(route7, pictureBox13, 20, stop);
-            Bus7_14.Start();
-            Bus7_15 = new BusPark(route7, pictureBox14, 6, stop, pictureBox5, Epics, 7);
-            Bus7_15.Start();
-            Bus7_16 = new BusPark(route7, pictureBox7, 10, true, stop, pictureBox5, Epics, 7);
-            Bus7_16.Start();
+            //Bus7_4 = new BusPark(route7, pictureBox1, 1, stop);
+            //Bus7_4.Start();
+            //Bus7_5 = new BusPark(route7, pictureBox2, 3, true, stop, pictureBox5, Epics,  7);
+            //Bus7_5.Start();
+            //Bus7_6 = new BusPark(route7, pictureBox3, 5, stop, pictureBox5, Epics, TheGrid, 7);
+            //Bus7_6.Start();
+            //Bus7_7 = new BusPark(route7, pictureBox4, 7, stop);
+            //Bus7_7.Start();
+            //Bus7_8 = new BusPark(route7, pictureBox6, 9, true, stop);
+            //Bus7_8.Start();
+            //Bus7_9 = new BusPark(route7, pictureBox8, 16, stop, pictureBox5, Epics, TheGrid, 7);
+            //Bus7_9.Start();
+            //Bus7_10 = new BusPark(route7, pictureBox9, 13, stop, pictureBox5, Epics, TheGrid, 7);
+            //Bus7_10.Start();
+            //Bus7_11 = new BusPark(route7, pictureBox10, 14, stop, pictureBox5, Epics, TheGrid, 7);
+            //Bus7_11.Start();
+            //Bus7_12 = new BusPark(route7, pictureBox11, 16, true, stop, pictureBox5, Epics, 7);
+            //Bus7_12.Start();
+            //Bus7_13 = new BusPark(route7, pictureBox12, 18, stop);
+            //Bus7_13.Start();
+            //Bus7_14 = new BusPark(route7, pictureBox13, 20, stop);
+            //Bus7_14.Start();
+            //Bus7_15 = new BusPark(route7, pictureBox14, 6, stop, pictureBox5, Epics, TheGrid, 7);
+            //Bus7_15.Start();
+            //Bus7_16 = new BusPark(route7, pictureBox7, 10, true, stop, pictureBox5, Epics, 7);
+            //Bus7_16.Start();
 
-            Bus23_1 = new BusPark(route23, pictureBus23_1, 5, stop);
-            Bus23_1.Start();
-            Bus23_2 = new BusPark(route23, pictureBus23_2, 14, stop, pictureBox5, Epics, 23);
-            Bus23_2.Start();
+            //Bus23_1 = new BusPark(route23, pictureBus23_1, 5, stop);
+            //Bus23_1.Start();
+            //Bus23_2 = new BusPark(route23, pictureBus23_2, 14, stop, pictureBox5, Epics, 23);
+            //Bus23_2.Start();
 
-            Bus62_1 = new BusPark(route62, pictureBus62_1, 1, stop, pictureBox5, Epics, 62);
-            Bus62_1.Start();
+            //Bus62_1 = new BusPark(route62, pictureBus62_1, 1, stop, pictureBox5, Epics, 62);
+            //Bus62_1.Start();
 
-            Bus404_1 = new BusPark(route404, pictureBus404_1, 1, stop, pictureBox5, Epics, 404);
-            Bus404_1.Start();
-            Bus404_2 = new BusPark(route404, pictureBus404_2, route404.Count - 1, stop);
-            Bus404_2.Start();
+            //Bus404_1 = new BusPark(route404, pictureBus404_1, 1, stop, pictureBox5, Epics, 404);
+            //Bus404_1.Start();
+            //Bus404_2 = new BusPark(route404, pictureBus404_2, route404.Count - 1, stop);
+            //Bus404_2.Start();
 
-            Bus_107 = new BusPark(route107, pictureBox15, 0, stop, pictureBox5, Epics, 107);
-            Bus_107.Start();
-            Bus_43 = new BusPark(route43, pictureBox16, 0, stop, pictureBox5, Epics, 43);
-            Bus_43.Start();
-            Bus_20 = new BusPark(route20, pictureBox17, 0, stop, pictureBox5, Epics, 20);
-            Bus_20.Start();
+            //Bus_107 = new BusPark(route107, pictureBox15, 0, stop, pictureBox5, Epics, 107);
+            //Bus_107.Start();
+            //Bus_43 = new BusPark(route43, pictureBox16, 0, stop, pictureBox5, Epics, 43);
+            //Bus_43.Start();
+            //Bus_20 = new BusPark(route20, pictureBox17, 0, stop, pictureBox5, Epics, 20);
+            //Bus_20.Start();
 
+
+            park7 = new List<BusPark>() { Bus7_1, Bus7_2, Bus7_3, Bus7_4, Bus7_5, Bus7_6, Bus7_7, Bus7_8, Bus7_9, Bus7_10, Bus7_11, Bus7_12, Bus7_13, Bus7_14, Bus7_15, Bus7_16 };
+            park23 = new List<BusPark>() { Bus23_1, Bus23_2 };
+            park62 = new List<BusPark>() { Bus62_1 };
+            park404 = new List<BusPark>() { Bus404_1, Bus404_2 };
+            park20 = new List<BusPark>() { Bus_20 };
+            park43 = new List<BusPark>() { Bus_43 };
+            park107 = new List<BusPark>() { Bus_107 };
+
+            buses = new List<BusPark>() { Bus7_1};
+
+            busesPark = new List<List<BusPark>>() { park7, park23, park62, park404, park20, park43, park107 };
 
         }
 
@@ -319,10 +314,7 @@ namespace SystAnalys_lr1
 
 
         private void timer1_Tick_1(object sender, EventArgs e)
-        {
-            buses = new List<BusPark>() { Bus7_1, Bus23_1, Bus7_2, Bus7_3, Bus7_4, Bus7_5, Bus7_6, Bus7_7, Bus7_8, Bus7_9, Bus7_10, Bus7_11, Bus7_12, Bus7_13, Bus7_14, Bus7_15, Bus7_16,
-            Bus23_2, Bus62_1, Bus404_1, Bus404_2,
-            Bus_107, Bus_43, Bus_20 };
+        {           
 
             int[,] myArr = new int[routes.Count, buses.Count];
 
@@ -345,9 +337,7 @@ namespace SystAnalys_lr1
                 myArr[0, j] = (int)buses[j].Date;
                 dataGridView2.Rows[0].Cells[j].Value = myArr[0, j];
             }
-
-            //label1.Text += Bus7_1.Date.ToString();
-            //label1.Text += "\n";
+            
         }
 
 

@@ -176,6 +176,17 @@ namespace SystAnalys_lr1
         private PictureBox Bus;
         private int route;
         private double _date;
+        private int total;
+
+        public int getTotal()
+        {
+            return total;
+        }
+
+        public void setTotal()
+        {
+            this.total += 1;
+        }
 
         public double Date
         {
@@ -270,7 +281,7 @@ namespace SystAnalys_lr1
             return Math.Atan2((x - x2), (y - y2));
         }
 
-        private double GetDistance(double x1, double y1, double x2, double y2)
+        public double GetDistance(double x1, double y1, double x2, double y2)
         {
             return (int)Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
         }
@@ -279,29 +290,32 @@ namespace SystAnalys_lr1
         {
             for (int i = 0; i < Epicenters.Count; i++)
             {
-                if (GetDistance((double)Bus.Left + Bus.Width / 2, (double)Bus.Top + Bus.Height / 2, (double)Epicenters[i].x, (double)Epicenters[i].y) < ((Epicenters[i].radius / 2) / 2) / 2)
+                if ( GetDistance((double)Bus.Left + Bus.Width / 2, (double)Bus.Top + Bus.Height / 2, (double)Epicenters[i].x, (double)Epicenters[i].y) < ((Epicenters[i].radius / 2) / 2) / 2)
                 {
-
+                    
                     this.Map.CreateGraphics().DrawLine(new Pen(Color.DarkRed), Bus.Left + Bus.Width / 2, Bus.Top + Bus.Height, Bus.Left + Bus.Width / 2 + 1, Bus.Top + Bus.Height + 1);
                     this.Map.CreateGraphics().DrawLine(new Pen(Color.DarkRed), Bus.Left + Bus.Width / 2, Bus.Top - 1, Bus.Left + Bus.Width / 2 + 1, Bus.Top - 1);
                     this.Date += 2;
+                    setTotal();
 
                 }
                 else
-                if (GetDistance((double)Bus.Left + Bus.Width / 2, (double)Bus.Top + Bus.Height / 2, (double)Epicenters[i].x, (double)Epicenters[i].y) < (Epicenters[i].radius / 2) / 2)
+                if (Epicenters[i].check == false && GetDistance((double)Bus.Left + Bus.Width / 2, (double)Bus.Top + Bus.Height / 2, (double)Epicenters[i].x, (double)Epicenters[i].y) < (Epicenters[i].radius / 2) / 2)
                 {
-
+                   
                     this.Map.CreateGraphics().DrawLine(new Pen(Color.DarkOrange), Bus.Left + Bus.Width / 2, Bus.Top + Bus.Height, Bus.Left + Bus.Width / 2 + 1, Bus.Top + Bus.Height + 1);
                     this.Map.CreateGraphics().DrawLine(new Pen(Color.DarkOrange), Bus.Left + Bus.Width / 2, Bus.Top - 1, Bus.Left + Bus.Width / 2 + 1, Bus.Top - 1);
                     this.Date += 5;
+                    setTotal();
                 }
                 else
-                if (GetDistance((double)Bus.Left + Bus.Width / 2, (double)Bus.Top + Bus.Height / 2, (double)Epicenters[i].x, (double)Epicenters[i].y) < Epicenters[i].radius / 2)
+                if (Rectangles[i].check == false && GetDistance((double)Bus.Left + Bus.Width / 2, (double)Bus.Top + Bus.Height / 2, (double)Epicenters[i].x, (double)Epicenters[i].y) < Epicenters[i].radius / 2)
                 {
-
+                    
                     this.Map.CreateGraphics().DrawLine(new Pen(Color.Yellow), Bus.Left + Bus.Width / 2, Bus.Top + Bus.Height, Bus.Left + Bus.Width / 2 + 1, Bus.Top + Bus.Height + 1);
                     this.Map.CreateGraphics().DrawLine(new Pen(Color.Yellow), Bus.Left + Bus.Width / 2, Bus.Top - 1, Bus.Left + Bus.Width / 2 + 1, Bus.Top - 1);
                     this.Date += 10;
+                    setTotal();
                 }
 
             }
@@ -312,29 +326,13 @@ namespace SystAnalys_lr1
         {
             for (int i = 0; i < Rectangles.Count; i++)
             {
-                if (GetDistance((double)Bus.Left + Bus.Width / 2, (double)Bus.Top + Bus.Height / 2, (double)Rectangles[i].x, (double)Rectangles[i].y) < (((Rectangles[i].width * Rectangles[i].heigh) / 2) / 2) / 2)
+                if (GetDistance((double)Bus.Left + Bus.Width / 2, (double)Bus.Top + Bus.Height / 2, (double)Rectangles[i].x+ Rectangles[i].width /2, (double)Rectangles[i].y+ Rectangles[i].height /2) < Rectangles[i].width /2 )
                 {
 
-                    this.Map.CreateGraphics().DrawLine(new Pen(Color.DarkRed), Bus.Left + Bus.Width / 2, Bus.Top + Bus.Height, Bus.Left + Bus.Width / 2 + 1, Bus.Top + Bus.Height + 1);
-                    this.Map.CreateGraphics().DrawLine(new Pen(Color.DarkRed), Bus.Left + Bus.Width / 2, Bus.Top - 1, Bus.Left + Bus.Width / 2 + 1, Bus.Top - 1);
-                    this.Date += 2;
+                    //Rectangles[i].check = true;
+                    Rectangles[i].res += 1;
+                    setTotal();
 
-                }
-                else
-                if (GetDistance((double)Bus.Left + Bus.Width / 2, (double)Bus.Top + Bus.Height / 2, (double)Rectangles[i].x, (double)Rectangles[i].y) < ((Rectangles[i].width * Rectangles[i].heigh) / 2) / 2)
-                {
-
-                    this.Map.CreateGraphics().DrawLine(new Pen(Color.DarkOrange), Bus.Left + Bus.Width / 2, Bus.Top + Bus.Height, Bus.Left + Bus.Width / 2 + 1, Bus.Top + Bus.Height + 1);
-                    this.Map.CreateGraphics().DrawLine(new Pen(Color.DarkOrange), Bus.Left + Bus.Width / 2, Bus.Top - 1, Bus.Left + Bus.Width / 2 + 1, Bus.Top - 1);
-                    this.Date += 5;
-                }
-                else
-                if (GetDistance((double)Bus.Left + Bus.Width / 2, (double)Bus.Top + Bus.Height / 2, (double)Rectangles[i].x, (double)Rectangles[i].y) < (Rectangles[i].width * Rectangles[i].heigh) / 2)
-                {
-
-                    this.Map.CreateGraphics().DrawLine(new Pen(Color.Yellow), Bus.Left + Bus.Width / 2, Bus.Top + Bus.Height, Bus.Left + Bus.Width / 2 + 1, Bus.Top + Bus.Height + 1);
-                    this.Map.CreateGraphics().DrawLine(new Pen(Color.Yellow), Bus.Left + Bus.Width / 2, Bus.Top - 1, Bus.Left + Bus.Width / 2 + 1, Bus.Top - 1);
-                    this.Date += 10;
                 }
 
             }
@@ -344,6 +342,7 @@ namespace SystAnalys_lr1
         private void TimerDetectProcessor(object sender, EventArgs e)
         {
             DetectEpicenter();
+            DetectRectangle();
         }
         private void TimerMoveProcessor(object sender, EventArgs e)
         {
@@ -354,7 +353,7 @@ namespace SystAnalys_lr1
             MovingTimer = new Timer();
             MovingTimer.Interval = 1;
             DetectTimer = new Timer();
-            DetectTimer.Interval =250;
+            DetectTimer.Interval =1;
             MovingTimer.Tick += new EventHandler(TimerMoveProcessor);
             DetectTimer.Tick += new EventHandler(TimerDetectProcessor);
             MovingTimer.Start();
@@ -431,7 +430,9 @@ namespace SystAnalys_lr1
     {
 
         //private PictureBox Map;
-        public int x, y, radius;
+        public int x, y, radius, res;
+        public bool check = false;  //todo
+
         public Epicenter(PictureBox Map, int x, int y, int radius)
         {
             this.x = x;
@@ -458,18 +459,24 @@ namespace SystAnalys_lr1
     {
 
 
-        public int x, y, width, heigh;
-        public grid_part(int x, int y, int heigh, int width)
+        public int x, y, width, height, res;
+        public bool check = false;  //todo
+
+        public grid_part(int x, int y, int height, int width)
         {
             this.width = width;
-            this.heigh = heigh;
+            this.height = height;
             this.x = x;
             this.y = y;
         }
 
+        public void setRes() {
+            this.res += 1;
+        }
+
         public void DrawPart(Graphics g)
         {
-            g.DrawRectangle(new Pen(Color.Black, 1), x, y, width, heigh);
+            g.DrawRectangle(new Pen(Color.Black, 1), x, y, width, height);
         }
     }
 

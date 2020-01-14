@@ -39,7 +39,7 @@ namespace SystAnalys_lr1
             //Bitmap image1 = new Bitmap("Resources/xxx.png");
             //pictureBox2.Image = image1;
             //pictureBox2.Load(@"C:\Users\pako2\Desktop\Diplom\Vlad\gigamegapatch\SystAnalys_lr1\Resources\Map.PNG");
-            pictureBox2.Load(@"C:\Users\User\Desktop\1434\gigamegapatch\SystAnalys_lr1\Resources\Map.PNG");
+            pictureBox2.Load("../../Resources/Map.PNG");
             pictureBox2.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox2_Paint);
 
             // Add the PictureBox control to the Form.

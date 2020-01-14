@@ -16,7 +16,7 @@ namespace SystAnalys_lr1
         static List<BusPark> buses;
         static List<List<BusPark>> busesPark;
 
-        static Dictionary<int, List<Vertex>> routes = new Dictionary<int, List<Vertex>>() { { 7, route7 }, { 23, route23 }, { 62, route62 }, { 404, route404 },
+        Dictionary<int, List<Vertex>> routes = new Dictionary<int, List<Vertex>>() { { 7, route7}, { 23, route23 }, { 62, route62 }, { 404, route404 },
                                                                                            { 20, route20 }, { 43, route43 }, { 107, route107 }};
 
         static BusPark Bus7_1, Bus7_2, Bus7_3, Bus7_4, Bus7_5, Bus7_6, Bus7_7, Bus7_8, Bus7_9, Bus7_10, Bus7_11, Bus7_12, Bus7_13, Bus7_14, Bus7_15, Bus7_16, Bus23_1,
@@ -28,6 +28,8 @@ namespace SystAnalys_lr1
         static List<BusPark> park62;
         static List<BusPark> park404;
         static List<BusPark> park20;
+
+
         static List<BusPark> park43;
         static List<BusPark> park107;
 
@@ -43,6 +45,12 @@ namespace SystAnalys_lr1
         List<Edge> E;
         List<Point> AllRotationsPoints;
 
+
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            label3.Text = Epics[0].res.ToString();
+        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -60,12 +68,26 @@ namespace SystAnalys_lr1
         private void pictureBox5_MouseClick(object sender, MouseEventArgs e)
         {
             label2.Text = e.X.ToString() + ";" + e.Y.ToString();
+            for (int i = 0; i < TheGrid.Count; i++)
+            {
+                if (GetDistance((double)e.X, (double)e.Y,(double)TheGrid[i].x + TheGrid[i].width / 2, (double)TheGrid[i].y + TheGrid[i].height / 2) < TheGrid[i].width/2)
+                {
+
+                    label4.Text = TheGrid[i].res.ToString();
+
+                }
+
+            }
+        }
+        public double GetDistance(double x1, double y1, double x2, double y2)
+        {
+            return (int)Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
         }
 
 
         private void Matrix()
         {
-
+           
             int parkSize = 0;
 
             foreach (var x in busesPark)
@@ -93,6 +115,7 @@ namespace SystAnalys_lr1
             {
                 dataGridView1.Rows[i].HeaderCell.Value = routes.ElementAt(i).Key.ToString();
             }
+          
             int total;
             for (int i = 0; i < busesPark.Count; ++i)
             {
@@ -122,16 +145,17 @@ namespace SystAnalys_lr1
 
 
 
-
         }
 
         public Form1()
         {
             InitializeComponent();
-          //  List<grid_part> TheGrid = new List<grid_part>();
+
             AllRotations rotations = new AllRotations();
             G = new DrawGraph(sheet.Width, sheet.Height);
             E = new List<Edge>();
+
+            label1.Text = (pictureBox5.Size.Height * pictureBox5.Size.Width).ToString();
 
             AllRotationsPoints = AllRotations.GetAllRotationsPoints();
             route7 = AllRotations.GetRoute7();
@@ -149,6 +173,7 @@ namespace SystAnalys_lr1
             Routes(route23);
             Routes(route43);
 
+           
             AddEpicenters();
 
             CreateGrid();
@@ -158,7 +183,7 @@ namespace SystAnalys_lr1
             DisplayEpicenters Ep = new DisplayEpicenters(Epics);
 
             Ep.Show();
-
+            
             
 
         }
@@ -193,10 +218,10 @@ namespace SystAnalys_lr1
         {
             Bus7_1 = new BusPark(route7, pictureBus7_1, 0, stop, pictureBox5, Epics, TheGrid, 7);
             Bus7_1.Start();
-            //Bus7_2 = new BusPark(route7, pictureBox7_3, 10, stop);
-            //Bus7_2.Start();
-            Bus7_3 = new BusPark(route7, pictureBus7_2, 20, stop, pictureBox5, Epics, TheGrid, 7);
-            Bus7_3.Start();
+            Bus7_2 = new BusPark(route7, pictureBox7_3, 10, stop, pictureBox5, Epics, TheGrid, 7);
+            Bus7_2.Start();
+            //Bus7_3 = new BusPark(route7, pictureBus7_2, 20, stop, pictureBox5, Epics, TheGrid, 7);
+            //Bus7_3.Start();
             //Bus7_4 = new BusPark(route7, pictureBox1, 1, stop);
             //Bus7_4.Start();
             //Bus7_5 = new BusPark(route7, pictureBox2, 3, true, stop, pictureBox5, Epics,  7);
@@ -278,27 +303,27 @@ namespace SystAnalys_lr1
         private void AddEpicenters()
         {
             Epics = new List<Epicenter>();
-            Epics.Add(new Epicenter(pictureBox5, 500, 500, 300));
-            Epics.Add(new Epicenter(pictureBox5, 930, 400, 150));
-            Epics.Add(new Epicenter(pictureBox5, 700, 730, 250));
-            Epics.Add(new Epicenter(pictureBox5, 800, 100, 220));
-            Epics.Add(new Epicenter(pictureBox5, 400, 370, 120));
-            Epics.Add(new Epicenter(pictureBox5, 900, 790, 134));
-            Epics.Add(new Epicenter(pictureBox5, 817, 395, 300));
+            //Epics.Add(new Epicenter(pictureBox5, 500, 500, 300));
+            //Epics.Add(new Epicenter(pictureBox5, 930, 400, 150));
+            //Epics.Add(new Epicenter(pictureBox5, 700, 730, 250));
+            //Epics.Add(new Epicenter(pictureBox5, 800, 100, 220));
+            //Epics.Add(new Epicenter(pictureBox5, 400, 370, 120));
+            //Epics.Add(new Epicenter(pictureBox5, 900, 790, 134));
+            //Epics.Add(new Epicenter(pictureBox5, 817, 395, 300));
 
-            Epics.Add(new Epicenter(pictureBox5, 571, 214, 300));
-            Epics.Add(new Epicenter(pictureBox5, 656, 301, 150));
+            //Epics.Add(new Epicenter(pictureBox5, 571, 214, 300));
+            //Epics.Add(new Epicenter(pictureBox5, 656, 301, 150));
             Epics.Add(new Epicenter(pictureBox5, 286, 583, 200));
-            Epics.Add(new Epicenter(pictureBox5, 182, 468, 150));
-            Epics.Add(new Epicenter(pictureBox5, 962, 611, 250));
-            Epics.Add(new Epicenter(pictureBox5, 1115, 514, 150));
-            Epics.Add(new Epicenter(pictureBox5, 999, 223, 200));
-            Epics.Add(new Epicenter(pictureBox5, 1324, 512, 300));
-            Epics.Add(new Epicenter(pictureBox5, 1701, 497, 500));
-            Epics.Add(new Epicenter(pictureBox5, 1165, 660, 350));
-            Epics.Add(new Epicenter(pictureBox5, 309, 216, 350));
-            Epics.Add(new Epicenter(pictureBox5, 1022, 47, 250));
-            Epics.Add(new Epicenter(pictureBox5, 510, 700, 250));
+            //Epics.Add(new Epicenter(pictureBox5, 182, 468, 150));
+            //Epics.Add(new Epicenter(pictureBox5, 962, 611, 250));
+            //Epics.Add(new Epicenter(pictureBox5, 1115, 514, 150));
+            //Epics.Add(new Epicenter(pictureBox5, 999, 223, 200));
+            //Epics.Add(new Epicenter(pictureBox5, 1324, 512, 300));
+            //Epics.Add(new Epicenter(pictureBox5, 1701, 497, 500));
+            //Epics.Add(new Epicenter(pictureBox5, 1165, 660, 350));
+            //Epics.Add(new Epicenter(pictureBox5, 309, 216, 350));
+            //Epics.Add(new Epicenter(pictureBox5, 1022, 47, 250));
+            //Epics.Add(new Epicenter(pictureBox5, 510, 700, 250));
         }
 
 
